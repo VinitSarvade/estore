@@ -13,6 +13,11 @@ const commonHeaders = {
   'X-RapidAPI-Host': API_URL,
 };
 
+const commonQueryParams = {
+  lang: 'en',
+  country: 'us',
+};
+
 const fetcher = async (url: URL, options: RequestInit = {}) => {
   return (
     await fetch(url, {
@@ -30,8 +35,13 @@ export const API = {
   ) => {
     const url = new URL(`https://${API_URL}${path}`);
 
-    Object.keys(query).forEach((key) => {
-      url.searchParams.append(key, query[key]);
+    const queryParams: Record<string, string> = {
+      ...commonQueryParams,
+      ...query,
+    };
+
+    Object.keys(queryParams).forEach((key) => {
+      url.searchParams.append(key, queryParams[key]);
     });
 
     return fetcher(url, { method: 'GET', headers });
