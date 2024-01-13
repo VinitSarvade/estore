@@ -2,6 +2,7 @@ import { Space_Grotesk } from 'next/font/google';
 
 import Tabbar from '@/components/bottom-nav/bottom-nav';
 import Navbar from '@/components/navbar/navbar';
+import { Analytics } from '@vercel/analytics/react';
 
 import { Category } from '@estore/types/category';
 import { API } from '@estore/utils/api';
@@ -29,6 +30,8 @@ export default async function RootLayout({
         </Header>
         <main className="mt-5 pb-20 md:pb-0">{children}</main>
         <Tabbar />
+
+        <Analytics />
       </body>
     </html>
   );
