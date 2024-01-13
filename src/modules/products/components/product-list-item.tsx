@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import { getPlaiceholder } from 'plaiceholder';
-
 import { Product } from '@estore/types/product';
 
 import DiscountBadge from './discount-badge';

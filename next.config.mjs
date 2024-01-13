@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 import withBundleAnalyzer from '@next/bundle-analyzer';
-import withPlaiceholder from '@plaiceholder/next';
+
+// import withPlaiceholder from '@plaiceholder/next';
 
 const bundleAnalyser = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -30,4 +31,4 @@ const nextConfig = {
   },
 };
 
-export default withPlaiceholder(bundleAnalyser(nextConfig));
+export default bundleAnalyser(nextConfig);
