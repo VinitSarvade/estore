@@ -7,15 +7,15 @@ import { API } from '../../api';
 import { API_PATHS } from '../../api-paths';
 
 interface RequestParams {
-  categories: string;
+  categoryTags: string;
 }
 
 export const GET = async (
   req: NextRequest,
-  { params: { categories } }: { params: RequestParams },
+  { params: { categoryTags } }: { params: RequestParams },
 ) => {
   const query = getQueryParamsFromSearchParams(
-    new URLSearchParams({ categories }),
+    new URLSearchParams({ categories: categoryTags }),
   );
   const response = await API.get<Product[]>(API_PATHS.PRODUCTS, query);
   return Response.json(response);

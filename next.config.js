@@ -11,7 +11,16 @@ const nextConfig = {
         hostname: 'image.hm.com',
       },
     ],
-  }
-}
+  },
+  redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/products/ladies_all',
+        permanent: false,
+      },
+    ];
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

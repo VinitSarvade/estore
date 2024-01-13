@@ -19,6 +19,9 @@
     "[typescriptreact]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
     },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
     "files.exclude": {
       "**/.next": true,
       "**/.nx": true,
@@ -36,6 +39,9 @@
       "editor.defaultFormatter": "jock.svg",
     },
     "svg.preview.background": "custom",
+    "[scss]": {
+      "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter",
+    },
   },
   "extensions": {
     "recommendations": [

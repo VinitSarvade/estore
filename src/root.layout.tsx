@@ -1,11 +1,14 @@
 import { Space_Grotesk } from 'next/font/google';
 
-import { Navbar } from '@/components/navbar/navbar';
+import Tabbar from '@/components/bottom-nav/bottom-nav';
+import Navbar from '@/components/navbar/navbar';
 
 import { Category } from '@estore/types/category';
 import { API } from '@estore/utils/api';
 
-const mont = Space_Grotesk({
+import Header from './components/header/header';
+
+const grotesk = Space_Grotesk({
   display: 'swap',
   weight: ['400', '600', '700'],
   subsets: ['latin'],
@@ -25,9 +28,12 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={mont.className}>
-        <Navbar categories={categories} />
-        <main className="pb-20 md:pb-0">{children}</main>
+      <body className={grotesk.className}>
+        <Header>
+          <Navbar categories={categories} />
+        </Header>
+        <main className="mt-5 pb-20 md:pb-0">{children}</main>
+        <Tabbar />
       </body>
     </html>
   );

@@ -13,7 +13,7 @@ import {
 
 import { cn } from '@estore/utils/cn';
 
-import './navbar.mobile.scss';
+import './bottom-nav.scss';
 
 export interface NavbarProps {}
 
@@ -25,11 +25,11 @@ const MenuItems = [
   { title: 'Account', href: '/', icon: UserRoundIcon } as const,
 ];
 
-function NavbarSM(props: NavbarProps) {
+function BottomNav(props: NavbarProps) {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="fixed bottom-0 px-2 pb-3 pt-8 w-full bg-gradient-to-b from-transparent to-white z-20">
+    <div className="bottom-nav" data-testid="bottom-nav">
       <div className="h-12 xs:h-16 flex justify-around bg-gray-800 rounded-full p-1 relative">
         {MenuItems.map((item, idx) => (
           <Link
@@ -40,6 +40,7 @@ function NavbarSM(props: NavbarProps) {
             key={item.title}
             href={item.href}
             onClick={() => setActive(idx)}
+            data-testid="menu-item"
           >
             {
               <item.icon
@@ -51,6 +52,7 @@ function NavbarSM(props: NavbarProps) {
         ))}
         <div
           className="indicator rounded-full bg-primary"
+          data-testid="indicator"
           data-active={active}
         />
       </div>
@@ -58,4 +60,4 @@ function NavbarSM(props: NavbarProps) {
   );
 }
 
-export default NavbarSM;
+export default BottomNav;
