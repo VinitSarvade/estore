@@ -11,7 +11,7 @@ export default function ProductPrice({
 }: ProductPriceProps) {
   return (
     <div className="price">
-      <span className="font-semibold text-primary">{sellingPrice}</span>
+      <span className="font-bold text-primary">{sellingPrice}</span>
 
       {!!isDiscounted && (
         <>
