@@ -3,6 +3,7 @@ import { Space_Grotesk } from 'next/font/google';
 import Tabbar from '@/components/bottom-nav/bottom-nav';
 import Navbar from '@/components/navbar/navbar';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { Category } from '@estore/types/category';
 import { API } from '@estore/utils/api';
@@ -31,6 +32,7 @@ export default async function RootLayout({
         <main className="mt-5 pb-20 md:pb-0">{children}</main>
         <Tabbar />
 
+        <SpeedInsights />
         <Analytics />
       </body>
     </html>
