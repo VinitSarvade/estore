@@ -1,16 +1,21 @@
+import {
+  type QueryParams,
+  appendQueryParams,
+} from '@estore/utils/query-params/query-params';
+
 import { API_PATHS } from './api-paths';
 
-const API_URL = process.env.API_URL;
-const API_KEY = process.env.API_KEY;
+const DATA_API_URL = process.env.DATA_API_URL;
+const DATA_API_KEY = process.env.DATA_API_KEY;
 
-if (!API_URL || !API_KEY) {
-  throw new Error('API_URL and API_KEY must be defined');
+if (!DATA_API_URL || !DATA_API_KEY) {
+  throw new Error('DATA_API_URL and DATA_API_KEY must be defined');
 }
 
 const commonHeaders = {
   'Content-Type': 'application/json',
-  'X-RapidAPI-Key': API_KEY,
-  'X-RapidAPI-Host': API_URL,
+  'X-RapidAPI-Key': DATA_API_KEY,
+  'X-RapidAPI-Host': DATA_API_URL,
 };
 
 const commonQueryParams = {
@@ -28,20 +33,16 @@ const fetcher = async (url: URL, options: RequestInit = {}) => {
 };
 
 export const API = {
-  get: (
+  get: <T>(
     path: API_PATHS,
-    query: Record<string, string> = {},
+    query: QueryParams = {},
     headers: HeadersInit = {},
-  ) => {
-    const url = new URL(`https://${API_URL}${path}`);
+  ): Promise<T> => {
+    let url = new URL(`https://${DATA_API_URL}${path}`);
 
-    const queryParams: Record<string, string> = {
+    url = appendQueryParams(url, {
       ...commonQueryParams,
       ...query,
-    };
-
-    Object.keys(queryParams).forEach((key) => {
-      url.searchParams.append(key, queryParams[key]);
     });
 
     return fetcher(url, { method: 'GET', headers });
