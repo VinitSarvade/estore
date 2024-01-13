@@ -11,7 +11,7 @@ interface RequestParams {
 }
 
 export const GET = async (
-  request: NextRequest,
+  req: NextRequest,
   { params: { categories } }: { params: RequestParams },
 ) => {
   const query = getQueryParamsFromSearchParams(

@@ -15,8 +15,11 @@ export default function ProductListItem({
   priorityImage,
 }: ProductListItemProps) {
   return (
-    <div className="product-list-item group flex flex-col bg-white rounded-2xl overflow-clip transition-all duration-500 hover:shadow-xl">
-      <div className="relative h-[60vw] md:h-[50vw] xl:h-[28vw] 2xl:h-[22vw]">
+    <div
+      className="product-list-item group flex flex-col bg-white rounded-2xl overflow-clip transition-all duration-500 hover:shadow-xl"
+      data-testid="product-item"
+    >
+      <div className="relative h-[60vw] md:h-[50vw] landscape:md:h-[25vw] lg:h-[38vw] landscape:lg:h-[38vw] xl:h-[calc(1440px*0.28)]">
         <Image
           className="bg-blend-multiply rounded-2xl transition-all group-hover:scale-110 group-hover:rotate-1 duration-700 object-cover object-center"
           src={product.images.at(0)!.baseUrl}

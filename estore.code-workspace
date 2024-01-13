@@ -1,39 +1,41 @@
 {
   "folders": [
     {
-      "path": "."
-    }
+      "path": ".",
+    },
   ],
   "settings": {
     "eslint.validate": [
       "javascript",
       "javascriptreact",
       "typescript",
-      "typescriptreact"
+      "typescriptreact",
     ],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
     },
     "[typescriptreact]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
     },
     "files.exclude": {
       "**/.next": true,
       "**/.nx": true,
       "**/tsconfig.lib.json": true,
       "**/tsconfig.spec.json": true,
-      "libs/**/.eslintrc.json": true,
-      "libs/**/*.md": true
     },
     "cSpell.words": ["estore"],
     "tailwindCSS.experimental.classRegex": [
       "twc\\.[^`]+`([^`]*)`",
       "twc\\(.*?\\).*?`([^`]*)",
       ["twc\\.[^`]+\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-      ["twc\\(.*?\\).*?\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-    ]
+      ["twc\\(.*?\\).*?\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+    ],
+    "[svg]": {
+      "editor.defaultFormatter": "jock.svg",
+    },
+    "svg.preview.background": "custom",
   },
   "extensions": {
     "recommendations": [
@@ -42,7 +44,7 @@
       "ms-playwright.playwright",
       "dbaeumer.vscode-eslint",
       "bradlc.vscode-tailwindcss",
-      "firsttris.vscode-jest-runner"
-    ]
-  }
+      "firsttris.vscode-jest-runner",
+    ],
+  },
 }

@@ -20,6 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@api/*": ["./app/api/*"],
+      "@app/*": ["./app/*"],
       "@estore/utils/*": ["./src/lib/utils/*"],
       "@estore/types/*": ["./src/lib/types/*"]
     }

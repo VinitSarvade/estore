@@ -86,6 +86,6 @@
 
 @layer components {
   .product-grid {
-    @apply grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6;
+    @apply grid grid-cols-2 landscape:grid-cols-3 md:grid-cols-3 landscape:md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6;
   }
 }

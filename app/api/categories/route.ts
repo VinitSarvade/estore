@@ -1,7 +1,8 @@
+import { API } from '@api/api';
+import { API_PATHS } from '@api/api-paths';
+
 import { APICategory } from '@estore/types/category';
 
-import { API } from '../api';
-import { API_PATHS } from '../api-paths';
 import { normalizeCategoryKeys } from './utils';
 
 export const GET = async () => {

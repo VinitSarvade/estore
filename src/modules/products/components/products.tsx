@@ -8,9 +8,10 @@ interface ProductsProps {
 
 export default function Products({ products }: ProductsProps) {
   return (
-    <div className="grid lg:grid-cols-[1fr_4fr] gap-4">
-      <div className="hidden lg:block">sidebar</div>
-      <div className="product-grid gap-3 md:grid-4 p-3 md:p-5">
+    <div className="grid gap-4">
+      {/* lg:grid-cols-[1fr_4fr] */}
+      {/* <div className="hidden lg:block">sidebar</div> */}
+      <div className="product-grid gap-3 md:grid-4 p-3">
         {products.map((product: Product, idx) => (
           <ProductListItem
             key={product.code}
