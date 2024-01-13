@@ -12,27 +12,29 @@ interface ProductListItemProps {
   priorityImage?: boolean;
 }
 
-async function getImage(src: string) {
-  const buffer = await fetch(src).then(async (res) =>
-    Buffer.from(await res.arrayBuffer()),
-  );
+// async function getImage(src: string) {
+//   const buffer = await fetch(src).then(async (res) =>
+//     Buffer.from(await res.arrayBuffer()),
+//   );
 
-  const {
-    metadata: { height, width },
-    ...plaiceholder
-  } = await getPlaiceholder(buffer, { size: 10 });
+//   const {
+//     metadata,
+//     ...plaiceholder
+//   } = await getPlaiceholder(buffer, { size: 10 });
 
-  return {
-    ...plaiceholder,
-    src,
-  };
-}
+//   return {
+//     ...plaiceholder,
+//     src,
+//   };
+// }
 
 export default async function ProductListItem({
   product,
   priorityImage,
 }: ProductListItemProps) {
-  const { base64, src } = await getImage(product.images.at(0)!.baseUrl);
+  // const { base64, src } = await getImage(product.images.at(0)!.baseUrl);
+
+  const src = product.images.at(0)!.baseUrl;
 
   return (
     <div
@@ -42,8 +44,8 @@ export default async function ProductListItem({
       <div className="relative h-[60vw] md:h-[50vw] landscape:md:h-[25vw] lg:h-[38vw] landscape:lg:h-[38vw] xl:h-[calc(1440px*0.28)] landscape:xl:h-[calc(1440px*0.28)]">
         <Image
           src={src}
-          blurDataURL={base64}
-          placeholder="blur"
+          // blurDataURL={base64}
+          // placeholder="blur"
           className="bg-blend-multiply rounded-2xl transition-all group-hover:scale-110 group-hover:rotate-1 duration-700 object-cover object-center"
           alt={product.name}
           priority={priorityImage}
