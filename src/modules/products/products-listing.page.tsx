@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { Category } from '@estore/types/category';
 import { API } from '@estore/utils/api';
 import { QueryParams } from '@estore/utils/query-params/query-params';
@@ -7,13 +5,14 @@ import { QueryParams } from '@estore/utils/query-params/query-params';
 import Products from './components/products';
 import { ProductsResponse } from './types';
 
-// export async function generateStaticParams() {
-//   const categories = await API.get<Category[]>('/categories');
+export async function generateStaticParams() {
+  const categories = await API.get<Category[]>('/categories');
 
-//   return categories.map((category) => ({
-//     category: category.key,
-//   }));
-// }
+  return categories.map((category) => ({
+    category: category.key,
+    fallback: false,
+  }));
+}
 
 async function getCategoryAndProducts(categoryTag: string) {
   const [categoriesResponse, productsResponse] = await Promise.all([
