@@ -28,7 +28,7 @@
       "**/tsconfig.lib.json": true,
       "**/tsconfig.spec.json": true,
     },
-    "cSpell.words": ["estore"],
+    "cSpell.words": ["estore", "plaiceholder"],
     "tailwindCSS.experimental.classRegex": [
       "twc\\.[^`]+`([^`]*)`",
       "twc\\(.*?\\).*?`([^`]*)",

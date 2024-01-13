@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { getPlaiceholder } from 'plaiceholder';
+
 import { Product } from '@estore/types/product';
 
 import DiscountBadge from './discount-badge';
@@ -10,10 +12,28 @@ interface ProductListItemProps {
   priorityImage?: boolean;
 }
 
-export default function ProductListItem({
+async function getImage(src: string) {
+  const buffer = await fetch(src).then(async (res) =>
+    Buffer.from(await res.arrayBuffer()),
+  );
+
+  const {
+    metadata: { height, width },
+    ...plaiceholder
+  } = await getPlaiceholder(buffer, { size: 10 });
+
+  return {
+    ...plaiceholder,
+    src,
+  };
+}
+
+export default async function ProductListItem({
   product,
   priorityImage,
 }: ProductListItemProps) {
+  const { base64, src } = await getImage(product.images.at(0)!.baseUrl);
+
   return (
     <div
       className="product-list-item group flex flex-col bg-white rounded-2xl overflow-clip transition-all duration-500 hover:shadow-xl"
@@ -21,8 +41,10 @@ export default function ProductListItem({
     >
       <div className="relative h-[60vw] md:h-[50vw] landscape:md:h-[25vw] lg:h-[38vw] landscape:lg:h-[38vw] xl:h-[calc(1440px*0.28)] landscape:xl:h-[calc(1440px*0.28)]">
         <Image
+          src={src}
+          blurDataURL={base64}
+          placeholder="blur"
           className="bg-blend-multiply rounded-2xl transition-all group-hover:scale-110 group-hover:rotate-1 duration-700 object-cover object-center"
-          src={product.images.at(0)!.baseUrl}
           alt={product.name}
           priority={priorityImage}
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
