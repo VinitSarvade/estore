@@ -1,18 +1,8 @@
 import type { Category } from '@estore/types/category';
 import { API } from '@estore/utils/api';
-import { QueryParams } from '@estore/utils/query-params/query-params';
 
 import Products from './components/products';
 import { ProductsResponse } from './types';
-
-export async function generateStaticParams() {
-  const categories = await API.get<Category[]>('/categories');
-
-  return categories.map((category) => ({
-    category: category.key,
-    fallback: false,
-  }));
-}
 
 async function getCategoryAndProducts(categoryTag: string) {
   const [categoriesResponse, productsResponse] = await Promise.all([
@@ -29,10 +19,8 @@ async function getCategoryAndProducts(categoryTag: string) {
 
 export default async function ProductsListingPage({
   params: { categoryTags },
-  searchParams,
 }: {
   params: { categoryTags: string };
-  searchParams?: QueryParams;
 }) {
   const { category, productsResponse } =
     await getCategoryAndProducts(categoryTags);
