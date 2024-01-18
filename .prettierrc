@@ -9,7 +9,7 @@
   "importOrder": [
     "^(react(.*)|next(.*))$",
     "<THIRD_PARTY_MODULES>",
-    "^@estore(.*)$",
+    "(^@estore(.*)$)|(^@/(.*)$)",
     "^[./]"
   ],
   "importOrderSeparation": true,
