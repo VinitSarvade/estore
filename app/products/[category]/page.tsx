@@ -1,22 +1,19 @@
 import { ResolvingMetadata } from 'next';
 
-import { Category } from '@/lib/types/category';
 import { API } from '@/lib/utils/api';
+import { Category } from '@prisma/client';
 
 export { default } from '@/modules/products/products-listing.page';
 
 export async function generateMetadata(
-  { params }: { params: { categoryTags: string } },
+  { params }: { params: { category: string } },
   parent: ResolvingMetadata,
 ) {
-  const categories = await API.get<Category[]>('/categories');
-  const category = categories.find((categoryObj) =>
-    categoryObj.tags.includes(params.categoryTags),
-  );
+  const category = await API.get<Category>(`/categories/${params.category}`);
 
   return {
     ...parent,
-    title: `Estore - ${category?.name}`,
+    title: `Estore - ${category.name}`,
   };
 }
 
@@ -24,6 +21,6 @@ export async function generateStaticParams() {
   const categories = await API.get<Category[]>('/categories');
 
   return categories.map((category) => ({
-    category: category.key,
+    category: category.value,
   }));
 }

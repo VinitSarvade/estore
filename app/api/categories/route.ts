@@ -1,11 +1,20 @@
-import { API } from '@api/api';
-import { API_PATHS } from '@api/api-paths';
+import { Category, PrismaClient } from '@prisma/client';
 
-import { APICategory } from '@estore/types/category';
-
-import { normalizeCategoryKeys } from './utils';
+const prisma = new PrismaClient();
 
 export const GET = async () => {
-  const response = await API.get<APICategory[]>(API_PATHS.CATEGORIES);
-  return Response.json(normalizeCategoryKeys(response));
+  const response: Category[] = await prisma.category.findMany({
+    where: {
+      path: {
+        not: {
+          contains: '/',
+        },
+      },
+      tagCodes: {
+        isEmpty: false,
+      },
+    },
+    orderBy: { id: 'asc' },
+  });
+  return Response.json(response);
 };

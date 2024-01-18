@@ -1,4 +1,4 @@
-import { Category } from '@estore/types/category';
+import { Category } from '@prisma/client';
 
 import NavbarLink from './navbar-link';
 import './navbar.scss';
@@ -14,8 +14,8 @@ export default function Navbar({ categories }: NavbarTabletProps) {
 
   return (
     <nav className="navbar py-1" aria-label="main navigation">
-      {categoriesWithHome.map(({ key, name, tags }) => (
-        <NavbarLink key={key} name={name} tags={tags} />
+      {categoriesWithHome.map(({ id, name, value }) => (
+        <NavbarLink key={id} name={name} value={value} />
       ))}
     </nav>
   );

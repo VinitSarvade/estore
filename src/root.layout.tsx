@@ -1,11 +1,11 @@
 import { Space_Grotesk } from 'next/font/google';
 
-import Tabbar from '@/components/bottom-nav/bottom-nav';
-import Navbar from '@/components/navbar/navbar';
+import { Category } from '@prisma/client';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { Category } from '@estore/types/category';
+import Tabbar from '@/components/bottom-nav/bottom-nav';
+import Navbar from '@/components/navbar/navbar';
 import { API } from '@estore/utils/api';
 
 import Header from './components/header/header';

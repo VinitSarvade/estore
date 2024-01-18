@@ -1,34 +1,31 @@
-import type { Category } from '@estore/types/category';
+import type { Category } from '@prisma/client';
+
 import { API } from '@estore/utils/api';
 
 import Products from './components/products';
 import { ProductsResponse } from './types';
 
-async function getCategoryAndProducts(categoryTag: string) {
-  const [categoriesResponse, productsResponse] = await Promise.all([
-    API.get<Category[]>(`/categories`),
-    API.get<ProductsResponse>(`/products/${categoryTag}`),
+async function getCategoryAndProducts(categoryValue: string) {
+  const [category, productsResponse] = await Promise.all([
+    API.get<Category>(`/categories/${categoryValue}`),
+    API.get<ProductsResponse>(`/products/${categoryValue}`),
   ]);
 
-  const category = categoriesResponse.find((categoryObj) =>
-    categoryObj.tags.includes(categoryTag),
-  );
-
-  return { category, productsResponse };
+  return { category: category, productsResponse };
 }
 
 export default async function ProductsListingPage({
-  params: { categoryTags },
+  params: { category: categoryValue },
 }: {
-  params: { categoryTags: string };
+  params: { category: string };
 }) {
   const { category, productsResponse } =
-    await getCategoryAndProducts(categoryTags);
+    await getCategoryAndProducts(categoryValue);
 
   return (
     <div className="container">
       <h1 className="text-2xl uppercase font-bold px-3 md:px-5">
-        {category?.name}
+        {category.name}
       </h1>
       <Products products={productsResponse.results} />
     </div>

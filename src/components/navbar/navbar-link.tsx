@@ -9,13 +9,14 @@ const blockLinks = 'flex flex-1 items-center h-full justify-center';
 
 interface NavbarLinkProps {
   name: string;
-  tags: string[];
+  value: string;
 }
 
-export default function NavbarLink({ name, tags }: NavbarLinkProps) {
+export default function NavbarLink({ name, value }: NavbarLinkProps) {
   const currentRoute = usePathname();
-  const link = `/products/${tags?.at(0)}`;
+  const link = `/products/${value}`;
   const isActive = currentRoute === link;
+
   return (
     <div className={cn('menu-item ', blockLinks, isActive && 'active')}>
       <Link href={link} className={blockLinks}>
