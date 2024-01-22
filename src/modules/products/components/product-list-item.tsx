@@ -32,11 +32,15 @@ export default async function ProductListItem({
   // const { base64, src } = await getImage(product.images.at(0)!.baseUrl);
   const product = productGroup.Products[0];
 
-  const imgUrl = decodeURIComponent(product.ProductImages.at(0)!.image!);
-  const thumbUrl = decodeURIComponent(product.ProductImages.at(0)!.thumbnail!);
+  const imgUrl = product.ProductImages.at(0)!.image!;
+  const thumbUrl = product.ProductImages.at(0)!.thumbnail!;
 
-  const imageSrc = imgUrl.startsWith('http') ? imgUrl : `https:${imgUrl}`;
-  const thumbnailSrc = imgUrl.startsWith('http') ? imgUrl : `https:${thumbUrl}`;
+  const imageSrc = decodeURIComponent(
+    imgUrl.startsWith('http') ? imgUrl : `https:${imgUrl}`,
+  );
+  const thumbnailSrc = decodeURIComponent(
+    imgUrl.startsWith('http') ? imgUrl : `https:${thumbUrl}`,
+  );
 
   return (
     <div
