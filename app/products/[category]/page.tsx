@@ -1,8 +1,6 @@
 import { ResolvingMetadata } from 'next';
 
-import { Category } from '@prisma/client';
-
-import { API } from '@/lib/utils/api';
+import { prisma } from '@estore/prisma';
 
 export { default } from '@/modules/products/products-listing.page';
 
@@ -10,9 +8,13 @@ export async function generateMetadata(
   { params }: { params: { category: string } },
   parent: ResolvingMetadata,
 ) {
-  const category = await API.get<Category | null>(
-    `/categories/${params.category}`,
-  );
+  const category = await prisma.category.findFirst({
+    where: {
+      value: {
+        equals: params.category,
+      },
+    },
+  });
 
   if (!category) {
     return null;
@@ -27,7 +29,19 @@ export async function generateMetadata(
 export const dynamicParams = false; // all categories are pre-generated, anything else is a 404
 
 export async function generateStaticParams() {
-  const categories = await API.get<Category[]>('/categories');
+  const categories = await prisma.category.findMany({
+    where: {
+      path: {
+        not: {
+          contains: '/',
+        },
+      },
+      tagCodes: {
+        isEmpty: false,
+      },
+    },
+    orderBy: { id: 'asc' },
+  });
 
   return categories.map((category) => ({
     category: category.value,

@@ -1,12 +1,11 @@
 import { Space_Grotesk } from 'next/font/google';
 
-import { Category } from '@prisma/client';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Tabbar from '@/components/bottom-nav/bottom-nav';
 import Navbar from '@/components/navbar/navbar';
-import { API } from '@estore/utils/api';
+import { prisma } from '@estore/prisma';
 
 import Header from './components/header/header';
 
@@ -21,7 +20,19 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const categories = await API.get<Category[]>('/categories');
+  const categories = await prisma.category.findMany({
+    where: {
+      path: {
+        not: {
+          contains: '/',
+        },
+      },
+      tagCodes: {
+        isEmpty: false,
+      },
+    },
+    orderBy: { id: 'asc' },
+  });
 
   return (
     <html lang="en">
