@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server';
 
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
-const prisma = new PrismaClient();
+import { prisma } from '@estore/prisma';
 
 interface RequestParams {
   category: string;

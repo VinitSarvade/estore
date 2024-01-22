@@ -1,6 +1,6 @@
-import { Category, PrismaClient } from '@prisma/client';
+import { Category } from '@prisma/client';
 
-const prisma = new PrismaClient();
+import { prisma } from '@estore/prisma';
 
 export const GET = async () => {
   const response: Category[] = await prisma.category.findMany({

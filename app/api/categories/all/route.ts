@@ -1,8 +1,8 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+
+import { prisma } from '@estore/prisma';
 
 import { buildNestedStructure } from '../utils';
-
-const prisma = new PrismaClient();
 
 export const GET = async () => {
   try {
