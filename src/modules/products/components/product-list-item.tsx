@@ -35,10 +35,10 @@ export default async function ProductListItem({
   const imgUrl = product.ProductImages.at(0)!.image!;
   const thumbUrl = product.ProductImages.at(0)!.thumbnail!;
 
-  const imageSrc = decodeURIComponent(
+  const imageSrc = decodeURI(
     imgUrl.startsWith('http') ? imgUrl : `https:${imgUrl}`,
   );
-  const thumbnailSrc = decodeURIComponent(
+  const thumbnailSrc = decodeURI(
     imgUrl.startsWith('http') ? imgUrl : `https:${thumbUrl}`,
   );
 

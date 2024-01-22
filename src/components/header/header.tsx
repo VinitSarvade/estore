@@ -15,6 +15,7 @@ export default function Header({ children }: PropsWithChildren) {
             alt="Estore Logo"
             width={200}
             height={54}
+            unoptimized
             priority
           />
         </Link>

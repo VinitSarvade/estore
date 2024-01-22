@@ -9,6 +9,9 @@ const bundleAnalyser = withBundleAnalyzer({
 
 const nextConfig = {
   images: {
+    loader: 'custom',
+    loaderFile: './src/lib/utils/cf-image.js',
+
     remotePatterns: [
       {
         protocol: 'https',
