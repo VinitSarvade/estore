@@ -1,7 +1,7 @@
 import { Category } from '@prisma/client';
 import { describe, expect, it } from 'vitest';
 
-import { buildNestedStructure } from './utils';
+import { buildNestedStructure } from './categories.util';
 
 describe('buildNestedStructure', () => {
   it('should build nested structure correctly', () => {
