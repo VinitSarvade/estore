@@ -11,7 +11,7 @@ export default function Header({ children }: PropsWithChildren) {
         <Link href="/" className="flex items-center">
           <Image
             src={logo}
-            className="mx-auto md:mx-5 bg-white px-5 rounded-full"
+            className="mx-auto md:mx-5 px-5 rounded-full"
             alt="Estore Logo"
             width={200}
             height={54}

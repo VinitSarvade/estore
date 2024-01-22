@@ -1,11 +1,6 @@
 import { NextRequest } from 'next/server';
 
 import { prisma } from '@estore/prisma';
-import { Product } from '@estore/types/product';
-import { getQueryParamsFromSearchParams } from '@estore/utils/query-params/query-params';
-
-import { API } from '../../api';
-import { API_PATHS } from '../../api-paths';
 
 interface RequestParams {
   category: string;
@@ -22,12 +17,62 @@ export const GET = async (
   });
 
   if (!category) {
-    return Response.json([]);
+    return Response.json(null, { status: 404 });
   }
 
-  const query = getQueryParamsFromSearchParams(
-    new URLSearchParams({ categories: category.tagCodes[0] }),
-  );
-  const response = await API.get<Product[]>(API_PATHS.PRODUCTS, query);
-  return Response.json(response);
+  const products = await prisma.productGroup.findMany({
+    select: {
+      id: true,
+      code: true,
+      name: true,
+      Products: {
+        select: {
+          code: true,
+          price: true,
+          salePrice: true,
+          ProductImages: {
+            select: {
+              id: true,
+              thumbnail: true,
+              image: true,
+            },
+            take: 1,
+          },
+          ProductAttributes: {
+            select: { id: true, name: true, value: true },
+            where: {
+              name: 'Concepts',
+            },
+            take: 1,
+          },
+        },
+        where: {
+          isDefaultProduct: true,
+          Category: {
+            path: {
+              startsWith: category.value,
+            },
+          },
+        },
+      },
+    },
+    where: {
+      Products: {
+        some: {
+          isDefaultProduct: true,
+          Category: {
+            path: {
+              startsWith: category.value,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      id: 'asc',
+    },
+    take: 30,
+  });
+
+  return Response.json(products);
 };

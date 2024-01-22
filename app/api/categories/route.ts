@@ -16,5 +16,5 @@ export const GET = async () => {
     },
     orderBy: { id: 'asc' },
   });
-  return Response.json(response);
+  return Response.json(response ?? []);
 };

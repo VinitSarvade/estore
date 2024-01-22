@@ -1,12 +1,11 @@
 import Image from 'next/image';
 
-import { Product } from '@estore/types/product';
-
+import { ProductListing } from '../types';
 import DiscountBadge from './discount-badge';
 import ProductPrice from './product-price';
 
 interface ProductListItemProps {
-  product: Product;
+  productGroup: ProductListing.ProductGroup;
   priorityImage?: boolean;
 }
 
@@ -27,12 +26,19 @@ interface ProductListItemProps {
 // }
 
 export default async function ProductListItem({
-  product,
+  productGroup,
   priorityImage,
 }: ProductListItemProps) {
   // const { base64, src } = await getImage(product.images.at(0)!.baseUrl);
+  const product = productGroup.Products[0];
 
-  const src = product.images.at(0)!.baseUrl;
+  const imgUrl = product.ProductImages.at(0)!.image!;
+  const thumbUrl = product.ProductImages.at(0)!.thumbnail!;
+
+  const imageSrc = imgUrl.startsWith('http') ? imgUrl : `https://${imgUrl}`;
+  const thumbnailSrc = imgUrl.startsWith('http')
+    ? imgUrl
+    : `https://${thumbUrl}`;
 
   return (
     <div
@@ -41,37 +47,31 @@ export default async function ProductListItem({
     >
       <div className="relative h-[60vw] md:h-[50vw] landscape:md:h-[25vw] lg:h-[38vw] landscape:lg:h-[38vw] xl:h-[calc(1440px*0.28)] landscape:xl:h-[calc(1440px*0.28)]">
         <Image
-          src={src}
-          // blurDataURL={base64}
-          // placeholder="blur"
+          src={imageSrc}
+          blurDataURL={thumbnailSrc}
+          placeholder="blur"
           className="bg-blend-multiply rounded-2xl transition-all group-hover:scale-110 group-hover:rotate-1 duration-700 object-cover object-center"
-          alt={product.name}
+          alt={productGroup.name}
           priority={priorityImage}
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
           fill
         />
 
-        {!!product.redPrice && (
+        {!!product.salePrice && (
           <DiscountBadge
-            fullPrice={product.whitePrice.value}
-            discountPrice={product.redPrice.value}
+            fullPrice={product.price}
+            discountPrice={product.salePrice}
           />
         )}
       </div>
 
       <div className="p-3 flex flex-col justify-between flex-1 z-10 backdrop-blur-md">
-        <h2 className="line-clamp-2 flex-1">{product.name}</h2>
-
-        {!!product.concept && product.concept.length > 0 && (
-          <p className="text-sm text-muted-foreground mb-1">
-            {product.concept?.join(', ')}
-          </p>
-        )}
+        <h2 className="line-clamp-2 flex-1">{productGroup.name}</h2>
 
         <ProductPrice
-          sellingPrice={product.price.formattedValue}
-          fullPrice={product.whitePrice.formattedValue}
-          isDiscounted={!!product.redPrice}
+          sellingPrice={product.price}
+          fullPrice={product.price}
+          isDiscounted={!!product.salePrice}
         />
       </div>
     </div>

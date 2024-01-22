@@ -1,32 +1,28 @@
-import { Product } from '@estore/types/product';
+import {
+  Product as PrismaProduct,
+  ProductAttributes as PrismaProductAttributes,
+  ProductGroup as PrismaProductGroup,
+  ProductImage as PrismaProductImage,
+} from '@prisma/client';
 
-export interface ProductsResponse {
-  results: Product[];
-  pagination: Pagination;
-  facets: Facets[];
-  freeTextSearch: string;
-}
+export namespace ProductListing {
+  export type Products = ProductGroup[];
 
-export interface Pagination {
-  pageSize: number;
-  currentPage: number;
-  sort: string;
-  numberOfPages: number;
-  totalNumberOfResults: number;
-  totalNumberOfResultsUnfiltered: number;
-}
+  export type ProductGroup = Pick<
+    PrismaProductGroup,
+    'id' | 'code' | 'name'
+  > & { Products: Product[] };
+  export type Product = Pick<PrismaProduct, 'code' | 'price' | 'salePrice'> & {
+    ProductImages: ProductImage[];
+    ProductAttributes: ProductAttributes[];
+  };
+  export type ProductImage = Pick<
+    PrismaProductImage,
+    'id' | 'thumbnail' | 'image'
+  >;
 
-export interface Facets {
-  code: string;
-  priority: number;
-  category: boolean;
-  multiSelect: boolean;
-  visible: boolean;
-  values: FacetValue[];
-}
-
-export interface FacetValue {
-  code: string;
-  count: number;
-  selected: boolean;
+  export type ProductAttributes = Pick<
+    PrismaProductAttributes,
+    'id' | 'name' | 'value'
+  >;
 }

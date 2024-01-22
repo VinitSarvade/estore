@@ -1,7 +1,7 @@
-import { getDiscountPercentage } from '@/lib/utils/discount/discount';
 import { cleanup, render } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
+import { getDiscountPercentage } from '@/lib/utils/discount/discount';
 import { Product } from '@estore/types/product';
 
 import ProductListItem from './product-list-item';
@@ -38,7 +38,7 @@ describe('ProductListItem', () => {
 
   it('should render the product name', () => {
     const { getByText } = render(
-      <ProductListItem product={product as Product} />,
+      <ProductListItem productGroup={product as Product} />,
     );
     const productNameElement = getByText(product.name);
 
@@ -47,7 +47,7 @@ describe('ProductListItem', () => {
 
   it('should render the product image', () => {
     const { getByAltText } = render(
-      <ProductListItem product={product as Product} />,
+      <ProductListItem productGroup={product as Product} />,
     );
     const productImageElement = getByAltText(product.name);
 
@@ -59,7 +59,7 @@ describe('ProductListItem', () => {
 
   it('should render the product concept', () => {
     const { getByText } = render(
-      <ProductListItem product={product as Product} />,
+      <ProductListItem productGroup={product as Product} />,
     );
     const productConceptElement = getByText(product.concept.join(', '));
 
@@ -68,7 +68,7 @@ describe('ProductListItem', () => {
 
   it('should render the product price', () => {
     const { getByText } = render(
-      <ProductListItem product={product as Product} />,
+      <ProductListItem productGroup={product as Product} />,
     );
     const productPriceElement = getByText(product.price.formattedValue);
 
@@ -77,7 +77,7 @@ describe('ProductListItem', () => {
 
   it('should render the discount badge if red price is available', () => {
     const { getByText } = render(
-      <ProductListItem product={product as Product} />,
+      <ProductListItem productGroup={product as Product} />,
     );
     const discountPer = getDiscountPercentage(
       product.whitePrice.value,

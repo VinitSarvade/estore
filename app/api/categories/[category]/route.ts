@@ -15,11 +15,16 @@ export const GET = async (
   try {
     const category = await prisma.category.findFirst({
       where: {
-        path: {
+        value: {
           equals: categoryValue,
         },
       },
     });
+
+    if (category === null) {
+      Response.json(null, { status: 404 });
+    }
+
     return Response.json(category);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

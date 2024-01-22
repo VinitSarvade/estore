@@ -1,9 +1,8 @@
-import { Product } from '@estore/types/product';
-
+import { ProductListing } from '../types';
 import ProductListItem from './product-list-item';
 
 interface ProductsProps {
-  products: Product[];
+  products: ProductListing.Products;
 }
 
 export default function Products({ products }: ProductsProps) {
@@ -12,10 +11,10 @@ export default function Products({ products }: ProductsProps) {
       {/* lg:grid-cols-[1fr_4fr] */}
       {/* <div className="hidden lg:block">sidebar</div> */}
       <div className="product-grid gap-3 md:grid-4 p-3">
-        {products.map((product: Product, idx) => (
+        {products.map((productGroup, idx) => (
           <ProductListItem
-            key={product.code}
-            product={product}
+            key={productGroup.code}
+            productGroup={productGroup}
             priorityImage={idx < 6}
           />
         ))}

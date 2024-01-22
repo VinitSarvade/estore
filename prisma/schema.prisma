@@ -12,11 +12,118 @@ datasource db {
 }
 
 model Category {
-  id       Int      @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
   value    String
   path     String // Materialized Path field
   tagCodes String[]
+  Facets   Facet[]
+  Products Product[]
 
   @@map("categories")
+}
+
+model Facet {
+  id           Int          @id @default(autoincrement())
+  code         String
+  categoryId   Int
+  Categorories Category     @relation(fields: [categoryId], references: [id])
+  Values       FacetValue[]
+
+  @@unique([code, categoryId])
+  @@map("facets")
+}
+
+model FacetValue {
+  id      Int    @id @default(autoincrement())
+  code    String
+  name    String
+  facetId Int
+  Facet   Facet  @relation(fields: [facetId], references: [id])
+
+  @@map("facet_values")
+}
+
+model ProductGroup {
+  id       Int       @id @default(autoincrement())
+  code     String    @unique
+  name     String
+  Products Product[] @relation("ProductGroup")
+
+  @@map("product_groups")
+}
+
+model Product {
+  id                  Int                  @id @default(autoincrement())
+  code                String
+  name                String
+  description         String
+  price               Float
+  salePrice           Float?
+  colorHex            String
+  isDefaultProduct    Boolean
+  categoryId          Int
+  Category            Category             @relation(fields: [categoryId], references: [id])
+  ProductGroup        ProductGroup         @relation("ProductGroup", fields: [productGroupId], references: [id])
+  productGroupId      Int
+  ProductImages       ProductImage[]
+  ProductSizes        ProductSizes[]
+  ProductCompositions ProductComposition[]
+  ProductAttributes   ProductAttributes[]
+
+  @@unique([code, productGroupId])
+  @@map("products")
+}
+
+model ProductImage {
+  id         Int     @id @default(autoincrement())
+  productId  Int
+  thumbnail  String?
+  image      String
+  fullscreen String?
+  Product    Product @relation(fields: [productId], references: [id])
+
+  @@map("product_images")
+}
+
+model ProductSizes {
+  id            Int     @id @default(autoincrement())
+  productId     Int
+  sizeCode      String
+  size          String
+  name          String
+  sizeScaleCode String
+  Product       Product @relation(fields: [productId], references: [id])
+
+  @@map("product_sizes")
+}
+
+model ProductComposition {
+  id              Int                           @id @default(autoincrement())
+  productId       Int
+  compositionType String
+  Product         Product                       @relation(fields: [productId], references: [id])
+  Materials       ProductCompositionMaterials[]
+
+  @@map("product_compositions")
+}
+
+model ProductCompositionMaterials {
+  id                   Int                @id @default(autoincrement())
+  productCompositionId Int
+  name                 String
+  amount               String
+  ProductComposition   ProductComposition @relation(fields: [productCompositionId], references: [id])
+
+  @@map("product_composition_materials")
+}
+
+model ProductAttributes {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  name      String
+  value     String[]
+  Product   Product  @relation(fields: [productId], references: [id])
+
+  @@map("product_attributes")
 }

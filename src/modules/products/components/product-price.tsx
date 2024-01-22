@@ -1,7 +1,7 @@
 interface ProductPriceProps {
   isDiscounted: boolean;
-  fullPrice: string;
-  sellingPrice: string;
+  fullPrice: number;
+  sellingPrice: number;
 }
 
 export default function ProductPrice({
@@ -11,7 +11,12 @@ export default function ProductPrice({
 }: ProductPriceProps) {
   return (
     <div className="price">
-      <span className="font-bold text-primary">{sellingPrice}</span>
+      <span className="font-bold text-primary">
+        {Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(sellingPrice)}
+      </span>
 
       {!!isDiscounted && (
         <>
