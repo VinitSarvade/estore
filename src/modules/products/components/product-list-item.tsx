@@ -35,11 +35,15 @@ export default async function ProductListItem({
   const imgUrl = product.ProductImages.at(0)!.image!;
   const thumbUrl = product.ProductImages.at(0)!.thumbnail!;
 
-  const imageSrc = decodeURI(
-    imgUrl.startsWith('http') ? imgUrl : `https:${imgUrl}`,
+  const imageSrc = encodeURI(
+    imgUrl.startsWith('http')
+      ? decodeURIComponent(imgUrl)
+      : `https:${decodeURIComponent(imgUrl)}`,
   );
-  const thumbnailSrc = decodeURI(
-    imgUrl.startsWith('http') ? imgUrl : `https:${thumbUrl}`,
+  const thumbnailSrc = encodeURI(
+    thumbUrl.startsWith('http')
+      ? decodeURIComponent(thumbUrl)
+      : `https:${decodeURIComponent(thumbUrl)}`,
   );
 
   return (
