@@ -25,10 +25,8 @@ interface ProductListItemProps {
 //   };
 // }
 
-export default async function ProductListItem({
-  productGroup,
-  priorityImage,
-}: ProductListItemProps) {
+export default function ProductListItem(props: ProductListItemProps) {
+  const { productGroup, priorityImage } = props;
   // const { base64, src } = await getImage(product.images.at(0)!.baseUrl);
   const product = productGroup.Products[0];
 

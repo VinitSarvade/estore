@@ -2,86 +2,62 @@ import { cleanup, render } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { getDiscountPercentage } from '@/lib/utils/discount/discount';
-import { Product } from '@estore/types/product';
 
 import ProductListItem from './product-list-item';
 
 describe('ProductListItem', () => {
-  const product = {
-    name: 'Sample Product',
-    images: [{ baseUrl: '/sample-image-url', url: '/sample-image-url' }],
-    price: {
-      formattedValue: '19.99',
-      currencyIso: '',
-      value: 19.99,
-      priceType: '',
-      type: 'RED',
-    },
-    whitePrice: {
-      formattedValue: '29.99',
-      currencyIso: '',
-      value: 29.99,
-      priceType: '',
-      type: 'WHITE',
-    },
-    redPrice: {
-      formattedValue: '19.99',
-      currencyIso: '',
-      value: 19.99,
-      priceType: '',
-      type: 'RED',
-    },
-    concept: ['Concept 1', 'Concept 2'],
+  const productGrp = {
+    id: 1,
+    name: 'Sample Product Group',
+    code: 'sample-group-code',
+    Products: [
+      {
+        id: 1,
+        code: 'sample-code',
+        name: 'Sample Product',
+        ProductImages: [
+          { id: 1, image: '/sample-image-url', thumbnail: '/sample-image-url' },
+        ],
+        price: 19.9,
+        salePrice: 9.9,
+        ProductAttributes: [],
+      },
+    ],
   };
 
   afterEach(cleanup);
 
   it('should render the product name', () => {
-    const { getByText } = render(
-      <ProductListItem productGroup={product as Product} />,
-    );
-    const productNameElement = getByText(product.name);
+    const { getByText } = render(<ProductListItem productGroup={productGrp} />);
+    const productNameElement = getByText(productGrp.name);
 
     expect(productNameElement).toBeTruthy();
   });
 
   it('should render the product image', () => {
     const { getByAltText } = render(
-      <ProductListItem productGroup={product as Product} />,
+      <ProductListItem productGroup={productGrp} />,
     );
-    const productImageElement = getByAltText(product.name);
+    const productImageElement = getByAltText(productGrp.name);
 
     expect(productImageElement).toBeTruthy();
     expect(productImageElement.getAttribute('src')).toContain(
-      encodeURIComponent(product.images[0].baseUrl),
+      encodeURIComponent(productGrp.Products[0].ProductImages[0].image),
     );
-  });
-
-  it('should render the product concept', () => {
-    const { getByText } = render(
-      <ProductListItem productGroup={product as Product} />,
-    );
-    const productConceptElement = getByText(product.concept.join(', '));
-
-    expect(productConceptElement).toBeTruthy();
   });
 
   it('should render the product price', () => {
-    const { getByText } = render(
-      <ProductListItem productGroup={product as Product} />,
-    );
-    const productPriceElement = getByText(product.price.formattedValue);
+    const { getByText } = render(<ProductListItem productGroup={productGrp} />);
+    const productPriceElement = getByText(productGrp.Products[0].price);
 
     expect(productPriceElement).toBeTruthy();
   });
 
-  it('should render the discount badge if red price is available', () => {
-    const { getByText } = render(
-      <ProductListItem productGroup={product as Product} />,
-    );
+  it('should render the discount badge if sale price is available', () => {
+    const { getByText } = render(<ProductListItem productGroup={productGrp} />);
     const discountPer = getDiscountPercentage(
-      product.whitePrice.value,
-      product.redPrice.value,
+      productGrp.Products[0].price,
+      productGrp.Products[0].salePrice,
     );
     const discountBadgeElement = getByText(discountPer);
 

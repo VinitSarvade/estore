@@ -1,69 +1,50 @@
 import { render } from '@testing-library/react';
-import { afterEach } from 'node:test';
 import { describe, expect, it } from 'vitest';
-
-import { Product } from '@estore/types/product';
 
 import Products from './products';
 
 const products = [
   {
-    name: 'Sample Product',
-    images: [{ baseUrl: '/sample-image-url', url: '/sample-image-url' }],
-    price: {
-      formattedValue: '19.99',
-      currencyIso: '',
-      value: 19.99,
-      priceType: '',
-      type: 'RED',
-    },
-    whitePrice: {
-      formattedValue: '29.99',
-      currencyIso: '',
-      value: 29.99,
-      priceType: '',
-      type: 'WHITE',
-    },
-    redPrice: {
-      formattedValue: '19.99',
-      currencyIso: '',
-      value: 19.99,
-      priceType: '',
-      type: 'RED',
-    },
-    concept: ['Concept 1', 'Concept 2'],
+    id: 1,
+    name: 'Sample Product Group 1',
+    code: 'sample-group-code-1',
+    Products: [
+      {
+        id: 1,
+        code: 'sample-code',
+        name: 'Sample Product',
+        ProductImages: [
+          { id: 1, image: '/sample-image-url', thumbnail: '/sample-image-url' },
+        ],
+        price: 19.9,
+        salePrice: 9.9,
+        ProductAttributes: [],
+      },
+    ],
   },
   {
-    name: 'Sample Product',
-    images: [{ baseUrl: '/sample-image-url', url: '/sample-image-url' }],
-    price: {
-      formattedValue: '19.99',
-      currencyIso: '',
-      value: 19.99,
-      priceType: '',
-      type: 'RED',
-    },
-    whitePrice: {
-      formattedValue: '29.99',
-      currencyIso: '',
-      value: 29.99,
-      priceType: '',
-      type: 'WHITE',
-    },
-    redPrice: {
-      formattedValue: '19.99',
-      currencyIso: '',
-      value: 19.99,
-      priceType: '',
-      type: 'RED',
-    },
-    concept: ['Concept 1', 'Concept 2'],
+    id: 2,
+    name: 'Sample Product Group 2',
+    code: 'sample-group-code-2',
+    Products: [
+      {
+        id: 1,
+        code: 'sample-code',
+        name: 'Sample Product',
+        ProductImages: [
+          { id: 1, image: '/sample-image-url', thumbnail: '/sample-image-url' },
+        ],
+        price: 19.9,
+        salePrice: 9.9,
+        ProductAttributes: [],
+      },
+    ],
   },
 ];
 
 describe('Products', () => {
   const { baseElement, getAllByTestId } = render(
-    <Products products={products as Product[]} />,
+    <Products products={products} />,
   );
   it('should render successfully', () => {
     expect(baseElement).toBeTruthy();
