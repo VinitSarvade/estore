@@ -4,11 +4,8 @@ const normalizeSrc = (src) => {
 
 const IMAGE_BASE = 'https://vinit.dev';
 
-export default function cloudflareLoader({ src, width, height, quality }) {
+export default function cloudflareLoader({ src, width, quality }) {
   const params = [`width=${width}`, `gravity=auto`, `fit=contain`, 'f=auto'];
-  if (height) {
-    params.push(`height=${height}`);
-  }
 
   if (quality) {
     params.push(`quality=${quality}`);
