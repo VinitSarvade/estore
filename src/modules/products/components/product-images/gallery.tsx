@@ -4,7 +4,7 @@ import { ProductImage } from '@prisma/client';
 
 import { cn } from '@/lib/utils/cn';
 
-export interface ProductImagesGalleryProps {
+interface ProductImagesGalleryProps {
   images: ProductImage[];
 }
 

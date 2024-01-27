@@ -1,6 +1,6 @@
 import { Category } from '@prisma/client';
 
-export interface CategoryWithSubCategories extends Category {
+interface CategoryWithSubCategories extends Category {
   subCategories?: CategoryWithSubCategories[];
 }
 

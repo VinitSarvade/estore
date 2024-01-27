@@ -39,6 +39,14 @@ const nextConfig = {
       },
     ];
   },
+  logging: {
+    fetches: {
+      fullUrl: false,
+    },
+  },
+  experimental: {
+    typedRoutes: true,
+  },
 };
 
 export default bundleAnalyser(nextConfig);

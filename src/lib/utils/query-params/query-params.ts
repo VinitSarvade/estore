@@ -1,4 +1,4 @@
-export type QueryParams = Record<string, string | string[]>;
+type QueryParams = Record<string, string | string[]>;
 
 export const appendQueryParams = (url: URL, queryParams: QueryParams) => {
   Object.entries(queryParams).forEach(([key, value]) => {

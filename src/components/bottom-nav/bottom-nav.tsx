@@ -15,7 +15,7 @@ import { cn } from '@estore/utils/cn';
 
 import './bottom-nav.scss';
 
-export interface NavbarProps {}
+interface NavbarProps {}
 
 const MenuItems = [
   { title: 'Home', href: '/', icon: HomeIcon } as const,
