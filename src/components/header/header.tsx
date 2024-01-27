@@ -7,7 +7,7 @@ import logo from './logo.svg';
 export default function Header({ children }: PropsWithChildren) {
   return (
     <header className="header">
-      <div className="flex container justify-between lg:gap-10">
+      <div className="flex container lg:gap-10">
         <Link href="/" className="flex items-center">
           <Image
             src={logo}

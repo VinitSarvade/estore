@@ -1,29 +1,38 @@
+import { cn } from '@/lib/utils/cn';
+
 interface ProductPriceProps {
-  isDiscounted: boolean;
   fullPrice: number;
-  sellingPrice: number;
+  sellingPrice: number | null;
+  className?: string;
+  strikePriceClassName?: string;
 }
 
 export default function ProductPrice({
-  isDiscounted,
   sellingPrice,
   fullPrice,
+  className,
+  strikePriceClassName,
 }: ProductPriceProps) {
+  const isDiscounted = !!sellingPrice;
+
   return (
     <div className="price">
-      <span className="font-bold text-primary">
+      <span className={cn('font-bold text-primary', className)}>
         {Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'USD',
-        }).format(sellingPrice)}
+        }).format(sellingPrice || fullPrice)}
       </span>
 
       {!!isDiscounted && (
-        <>
-          <small className="mx-1 line-through text-muted-foreground">
-            {fullPrice}
-          </small>
-        </>
+        <small
+          className={cn(
+            'mx-1 line-through text-muted-foreground',
+            strikePriceClassName,
+          )}
+        >
+          {fullPrice}
+        </small>
       )}
     </div>
   );

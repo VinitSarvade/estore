@@ -1,11 +1,8 @@
 import { notFound } from 'next/navigation';
 
-import type { Category } from '@prisma/client';
-
 import { prisma } from '@estore/prisma';
 
 import Products from './components/products';
-import type { ProductListing } from './types';
 
 async function getCategoryAndProducts(categoryValue: string) {
   const category = await prisma.category.findFirst({
@@ -87,8 +84,8 @@ export default async function ProductsListingPage({
   const { category, products } = await getCategoryAndProducts(categoryValue);
 
   return (
-    <div className="container">
-      <h1 className="text-2xl uppercase font-bold px-3 md:px-5">
+    <div className="mt-5">
+      <h1 className="px-3 text-2xl font-bold uppercase md:px-5">
         {category.name}
       </h1>
 

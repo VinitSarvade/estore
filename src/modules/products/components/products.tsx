@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { ProductListing } from '../types';
 import ProductListItem from './product-list-item';
 
@@ -10,13 +12,17 @@ export default function Products({ products }: ProductsProps) {
     <div className="grid gap-4">
       {/* lg:grid-cols-[1fr_4fr] */}
       {/* <div className="hidden lg:block">sidebar</div> */}
-      <div className="product-grid gap-3 md:grid-4 p-3">
+      <div className="product-grid md:grid-4 gap-3 p-3">
         {products.map((productGroup, idx) => (
-          <ProductListItem
+          <Link
             key={productGroup.code}
-            productGroup={productGroup}
-            priorityImage={idx < 6}
-          />
+            href={`/products/details/${productGroup.Products[0].code}`}
+          >
+            <ProductListItem
+              productGroup={productGroup}
+              priorityImage={idx < 6}
+            />
+          </Link>
         ))}
       </div>
     </div>

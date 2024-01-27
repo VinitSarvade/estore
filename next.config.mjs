@@ -7,10 +7,17 @@ const bundleAnalyser = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const imageLoaderConfig =
+  process.env.NODE_ENV === 'production'
+    ? {
+        loader: 'custom',
+        loaderFile: './src/lib/utils/cf-image.js',
+      }
+    : {};
+
 const nextConfig = {
   images: {
-    loader: 'custom',
-    loaderFile: './src/lib/utils/cf-image.js',
+    ...imageLoaderConfig,
 
     remotePatterns: [
       {

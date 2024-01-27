@@ -46,15 +46,15 @@ export default function ProductListItem(props: ProductListItemProps) {
 
   return (
     <div
-      className="product-list-item group flex flex-col bg-white rounded-2xl overflow-clip transition-all duration-500 hover:shadow-xl"
+      className="product-list-item group flex flex-col overflow-clip rounded-2xl bg-white transition-all duration-500 hover:shadow-xl"
       data-testid="product-item"
     >
-      <div className="relative h-[60vw] md:h-[50vw] landscape:md:h-[25vw] lg:h-[38vw] landscape:lg:h-[38vw] xl:h-[calc(1440px*0.28)] landscape:xl:h-[calc(1440px*0.28)]">
+      <div className="relative h-[60vw] md:h-[50vw] lg:h-[38vw] xl:h-[calc(1440px*0.42)] landscape:md:h-[25vw] landscape:lg:h-[38vw] landscape:xl:h-[calc(1440px*0.4)]">
         <Image
           src={imageSrc}
           blurDataURL={thumbnailSrc}
           placeholder="blur"
-          className="bg-blend-multiply rounded-2xl transition-all group-hover:scale-110 group-hover:rotate-1 duration-700 object-cover object-center"
+          className="rounded-2xl object-cover object-center bg-blend-multiply transition-all duration-700 group-hover:rotate-1 group-hover:scale-110"
           alt={productGroup.name}
           priority={priorityImage}
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
@@ -69,13 +69,12 @@ export default function ProductListItem(props: ProductListItemProps) {
         )}
       </div>
 
-      <div className="p-3 flex flex-col justify-between flex-1 z-10 backdrop-blur-md">
+      <div className="z-10 flex flex-1 flex-col justify-between p-3 backdrop-blur-md">
         <h2 className="line-clamp-2 flex-1">{productGroup.name}</h2>
 
         <ProductPrice
-          sellingPrice={product.price}
+          sellingPrice={product.salePrice}
           fullPrice={product.price}
-          isDiscounted={!!product.salePrice}
         />
       </div>
     </div>

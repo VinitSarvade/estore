@@ -52,7 +52,7 @@ export default async function RootLayout({
         <Header>
           <Navbar categories={categories} />
         </Header>
-        <main className="mt-5 pb-20 md:pb-0">{children}</main>
+        <main className="pb-20 md:pb-0">{children}</main>
         <Tabbar />
 
         <SpeedInsights />

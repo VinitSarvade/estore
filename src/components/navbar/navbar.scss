@@ -2,11 +2,11 @@
 
 @layer components {
   .navbar {
-    @apply hidden md:flex flex-1 h-14 px-10 gap-1 items-center max-w-full overflow-x-auto;
+    @apply hidden md:flex flex-1 h-14 px-10 gap-3 items-center max-w-fit overflow-x-auto;
 
     .menu-item {
       @apply before:block before:absolute before:inset-0 before:-skew-y-3 before:-skew-x-6 before:-z-10 before:rounded before:rounded-tl-xl before:rounded-br-xl;
-      @apply capitalize whitespace-nowrap shrink-0 px-2 relative z-0;
+      @apply capitalize whitespace-nowrap shrink-0 px-5 relative z-0;
       @apply hover:before:bg-primary hover:text-white;
 
       &.active {
