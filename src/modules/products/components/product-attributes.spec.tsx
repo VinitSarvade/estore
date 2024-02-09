@@ -1,8 +1,8 @@
 import { ProductAttributes } from '@prisma/client';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 
-import ProductAttributesComponent from './product-attributes';
+import { default as ProductAttributesComponent } from './product-attributes';
 
 const mockAttributes = [
   { id: 1, name: 'Clothing style', value: ['Casual'] },
@@ -11,36 +11,38 @@ const mockAttributes = [
 
 describe('ProductAttributesComponent', () => {
   it.skip('should render correctly with attributes', () => {
-    const { debug } = render(
+    const { getAllByRole, getAllByTestId, getByText } = render(
       <ProductAttributesComponent attributes={mockAttributes} />,
     );
 
     // Assert that the accordion items are rendered
-    const accordionItems = screen.getAllByRole('button');
+    const accordionItems = getAllByRole('button');
     expect(accordionItems).toHaveLength(2);
 
-    const attributeNames = screen.getAllByTestId('attribute-name');
-    const attributeValues = screen.getAllByTestId('attribute-value');
+    const attributeNames = getAllByTestId('attribute-name');
+    const attributeValues = getAllByTestId('attribute-value');
 
     expect(attributeNames).toHaveLength(2);
     expect(attributeValues).toHaveLength(2);
 
-    expect(screen.getByText('Clothing style')).toBeTruthy();
-    expect(screen.getByText('Casual')).toBeTruthy();
-    expect(screen.getByText('Material')).toBeTruthy();
-    expect(screen.getByText('Cotton')).toBeTruthy();
+    expect(getByText('Clothing style')).toBeTruthy();
+    expect(getByText('Casual')).toBeTruthy();
+    expect(getByText('Material')).toBeTruthy();
+    expect(getByText('Cotton')).toBeTruthy();
   });
 
   it('should render correctly without attributes', () => {
-    render(<ProductAttributesComponent attributes={[]} />);
+    const { queryAllByRole, queryAllByTestId } = render(
+      <ProductAttributesComponent attributes={[]} />,
+    );
 
     // Assert that no accordion items are rendered
-    const accordionItems = screen.queryAllByRole('button');
+    const accordionItems = queryAllByRole('button');
     expect(accordionItems).toHaveLength(0);
 
     // Assert that no attribute names and values are rendered
-    const attributeNames = screen.queryAllByTestId('attribute-name');
-    const attributeValues = screen.queryAllByTestId('attribute-value');
+    const attributeNames = queryAllByTestId('attribute-name');
+    const attributeValues = queryAllByTestId('attribute-value');
     expect(attributeNames).toHaveLength(0);
     expect(attributeValues).toHaveLength(0);
   });

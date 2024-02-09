@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 
 import Products from './products';
 
@@ -43,14 +43,13 @@ const products = [
 ];
 
 describe('Products', () => {
-  const { baseElement, getAllByTestId } = render(
-    <Products products={products} />,
-  );
   it('should render successfully', () => {
+    const { baseElement } = render(<Products products={products} />);
     expect(baseElement).toBeTruthy();
   });
 
   it('should render the correct number of products', () => {
+    const { getAllByTestId } = render(<Products products={products} />);
     const productItems = getAllByTestId('product-item');
     expect(productItems.length).toBe(products.length);
   });

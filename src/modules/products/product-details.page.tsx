@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { prisma } from '@estore/prisma';
 
-import ProductAttributesComponent from './components/product-attributes';
+import ProductAttributes from './components/product-attributes';
 import ProductColors from './components/product-colors';
 import ProductImages from './components/product-images';
 import ProductPrice from './components/product-price';
@@ -80,7 +80,7 @@ export default async function ProductDetailsPage({
 
         <div className="mt-8">
           <p>{product.description}</p>
-          <ProductAttributesComponent attributes={product.ProductAttributes} />
+          <ProductAttributes attributes={product.ProductAttributes} />
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -19,7 +20,7 @@ export default function NavbarLink({ name, value }: NavbarLinkProps) {
 
   return (
     <div className={cn('menu-item ', blockLinks, isActive && 'active')}>
-      <Link href={link} className={blockLinks}>
+      <Link href={link as Route} className={blockLinks}>
         {name.toLowerCase()}
       </Link>
     </div>

@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 
 import ProductPrice from './product-price';
 
@@ -22,6 +22,6 @@ describe('ProductPrice', () => {
     const fullPriceElement = getByText(fullPrice);
 
     expect(fullPriceElement).toBeTruthy();
-    expect(fullPriceElement.classList).toContain('line-through');
+    expect([...fullPriceElement.classList.values()]).toContain('line-through');
   });
 });

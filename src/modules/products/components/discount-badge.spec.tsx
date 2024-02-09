@@ -1,6 +1,7 @@
-import { getDiscountPercentage } from '@/lib/utils/discount/discount';
 import { render } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
+
+import { getDiscountPercentage } from '@/lib/utils/discount/discount';
 
 import DiscountBadge from './discount-badge';
 

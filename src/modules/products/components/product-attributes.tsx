@@ -40,7 +40,7 @@ const attributeCategories = [
   },
 ];
 
-export default function ProductAttributesComponent({
+export default function ProductAttributes({
   attributes,
 }: ProductAttributesProps) {
   const displayAttributes = attributes.reduce(
