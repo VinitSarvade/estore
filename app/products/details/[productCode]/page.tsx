@@ -11,12 +11,14 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ): Promise<ResolvedMetadata | null> {
   const product = await prisma.product.findFirst({
+    select: {
+      name: true,
+      description: true,
+      ProductGroup: { select: { name: true } },
+      ProductImages: { select: { image: true } },
+    },
     where: {
       code: params.productCode,
-    },
-    include: {
-      ProductGroup: true,
-      ProductImages: true,
     },
   });
 

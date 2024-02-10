@@ -92,6 +92,9 @@
   .product-grid {
     @apply grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 landscape:grid-cols-3 landscape:md:grid-cols-4 landscape:xl:grid-cols-5;
   }
+  .product-list-image-height {
+    @apply h-[60vw] md:h-[50vw] lg:h-[38vw] xl:h-[calc(1440px*0.42)] landscape:md:h-[25vw] landscape:lg:h-[38vw] landscape:xl:h-[calc(1440px*0.4)];
+  }
 }
 
 @layer utilities {

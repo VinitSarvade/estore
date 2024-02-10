@@ -1,5 +1,9 @@
 import Image from 'next/image';
 
+import { useIntersectionObserver } from 'usehooks-ts';
+
+import { cn } from '@/lib/utils/cn';
+
 import { ProductListing } from '../types';
 import DiscountBadge from './discount-badge';
 import ProductPrice from './product-price';
@@ -44,12 +48,21 @@ export default function ProductListItem(props: ProductListItemProps) {
       : `https:${decodeURIComponent(thumbUrl)}`,
   );
 
+  const { ref, isIntersecting } = useIntersectionObserver({
+    threshold: 0,
+    freezeOnceVisible: true,
+  });
+
   return (
     <div
-      className="product-list-item group flex flex-col overflow-clip rounded-2xl bg-white transition-all duration-500 hover:shadow-xl"
+      className={cn(
+        'product-list-item group flex flex-col overflow-clip rounded-2xl bg-white transition-all duration-500 hover:shadow-xl',
+        isIntersecting ? 'opacity-100' : 'opacity-0',
+      )}
       data-testid="product-item"
+      ref={ref}
     >
-      <div className="relative h-[60vw] md:h-[50vw] lg:h-[38vw] xl:h-[calc(1440px*0.42)] landscape:md:h-[25vw] landscape:lg:h-[38vw] landscape:xl:h-[calc(1440px*0.4)]">
+      <div className="relative product-list-image-height">
         <Image
           src={imageSrc}
           blurDataURL={thumbnailSrc}

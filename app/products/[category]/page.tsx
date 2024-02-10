@@ -9,6 +9,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ) {
   const category = await prisma.category.findFirst({
+    select: { name: true },
     where: {
       value: {
         equals: params.category,
@@ -30,6 +31,7 @@ export const dynamicParams = false; // all categories are pre-generated, anythin
 
 export async function generateStaticParams() {
   const categories = await prisma.category.findMany({
+    select: { value: true },
     where: {
       path: {
         not: {

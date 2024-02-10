@@ -44,12 +44,16 @@ const products = [
 
 describe('Products', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Products products={products} />);
+    const { baseElement } = render(
+      <Products initialProducts={products} categoryValue="men" />,
+    );
     expect(baseElement).toBeTruthy();
   });
 
   it('should render the correct number of products', () => {
-    const { getAllByTestId } = render(<Products products={products} />);
+    const { getAllByTestId } = render(
+      <Products initialProducts={products} categoryValue="men" />,
+    );
     const productItems = getAllByTestId('product-item');
     expect(productItems.length).toBe(products.length);
   });
