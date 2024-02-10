@@ -54,6 +54,7 @@ export default async function CategoriesPage() {
               alt={category.name}
               className="object-contain object-bottom"
               priority={idx < 6}
+              unoptimized
               fill
             />
           </div>
