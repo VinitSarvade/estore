@@ -1,7 +1,10 @@
 import { Category } from '@prisma/client';
 import { describe, expect, it } from 'bun:test';
 
-import { buildNestedCategories } from './categories.util';
+import {
+  CategoryWithSubCategories,
+  buildNestedCategories,
+} from './categories.util';
 
 describe('buildNestedStructure', () => {
   it('should build nested structure correctly', () => {
@@ -567,7 +570,7 @@ describe('buildNestedStructure', () => {
           },
         ],
       },
-    ];
+    ] as unknown as CategoryWithSubCategories[];
 
     const result = buildNestedCategories(categories);
     expect(result).toEqual(expectedNestedStructure);

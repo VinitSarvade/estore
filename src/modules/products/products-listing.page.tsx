@@ -6,6 +6,7 @@ import Products from './components/products';
 
 async function getCategoryAndProducts(categoryValue: string) {
   const category = await prisma.category.findFirst({
+    select: { name: true, value: true },
     where: {
       value: categoryValue,
     },

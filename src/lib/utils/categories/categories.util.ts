@@ -1,10 +1,12 @@
 import { Category } from '@prisma/client';
 
-interface CategoryWithSubCategories extends Category {
+export interface CategoryWithSubCategories extends Category {
   subCategories?: CategoryWithSubCategories[];
 }
 
-export function buildNestedCategories(categories: Category[]) {
+export function buildNestedCategories(
+  categories: Category[],
+): CategoryWithSubCategories[] {
   let categoryMap = new Map<string, CategoryWithSubCategories>();
 
   // Create a unique key for each category based on path and value
