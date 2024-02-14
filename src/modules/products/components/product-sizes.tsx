@@ -1,6 +1,6 @@
 import { ProductSizes } from '@prisma/client';
 
-import { Button } from '@/components/button';
+import { Button } from '@/components/ui/button';
 import { ShoppingBagIcon } from 'lucide-react';
 
 interface ProductSizesProps {

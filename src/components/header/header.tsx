@@ -7,11 +7,11 @@ import logo from './logo.svg';
 export default function Header({ children }: PropsWithChildren) {
   return (
     <header className="header">
-      <div className="flex container lg:gap-10">
+      <div className="flex place-items-center lg:gap-10 justify-between">
         <Link href="/" className="flex items-center">
           <Image
             src={logo}
-            className="mx-auto md:mx-5 px-5 rounded-full"
+            className="px-5 rounded-full"
             alt="Estore Logo"
             width={200}
             height={54}

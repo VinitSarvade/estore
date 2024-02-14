@@ -2,7 +2,7 @@
 
 @layer components {
   .navbar {
-    @apply hidden md:flex flex-1 h-14 px-10 gap-3 items-center max-w-fit overflow-x-auto;
+    @apply hidden md:flex mx-auto px-2 h-14 gap-3 items-center max-w-fit overflow-x-auto;
 
     .menu-item {
       @apply before:block before:absolute before:inset-0 before:-skew-y-3 before:-skew-x-6 before:-z-10 before:rounded before:rounded-tl-xl before:rounded-br-xl;

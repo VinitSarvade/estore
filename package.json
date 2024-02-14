@@ -15,8 +15,15 @@
     "@egjs/react-flicking": "^4.11.2",
     "@prisma/client": "^5.8.1",
     "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-slot": "^1.0.2",
+    "@supabase/ssr": "^0.1.0",
+    "@supabase/supabase-js": "^2.39.3",
+    "@tanstack/react-form": "^0.13.5",
+    "@tanstack/valibot-form-adapter": "^0.13.5",
     "@vercel/analytics": "^1.1.2",
     "@vercel/speed-insights": "^1.0.8",
     "class-variance-authority": "^0.7.0",
@@ -28,7 +35,9 @@
     "react-dom": "^18",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "usehooks-ts": "^2.13.0"
+    "usehooks-ts": "^2.13.0",
+    "valibot": "^0.28.1",
+    "vaul": "^0.9.0"
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "^13.3.8",

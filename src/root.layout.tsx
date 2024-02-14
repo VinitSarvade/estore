@@ -8,6 +8,7 @@ import Navbar from '@/components/navbar/navbar';
 import { prisma } from '@estore/prisma';
 
 import Header from './components/header/header';
+import UserNav from './components/user-nav/user-nav';
 
 const grotesk = Space_Grotesk({
   display: 'swap',
@@ -51,6 +52,7 @@ export default async function RootLayout({
       <body className={grotesk.className}>
         <Header>
           <Navbar categories={categories} />
+          <UserNav />
         </Header>
         <main className="pb-20 md:pb-0">{children}</main>
         <Tabbar />

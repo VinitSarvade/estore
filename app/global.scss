@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root, html[data-theme='light'] {
+  :root, html {
     --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
 
@@ -36,7 +36,7 @@
     --radius: 0.5rem;
   }
 
-  html[data-theme='dark'] {
+  html.dark {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
 
@@ -86,7 +86,7 @@
 
 @layer components {
   .header {
-    @apply border-border sticky top-0 z-20 border-b bg-white/60 px-5 py-3 shadow-md backdrop-blur-xl;
+    @apply border-border sticky top-0 z-20 border-b bg-white/60 md:px-5 py-3 shadow-md backdrop-blur-xl;
   }
 
   .product-grid {

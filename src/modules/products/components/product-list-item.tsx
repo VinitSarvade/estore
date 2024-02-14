@@ -49,7 +49,7 @@ export default function ProductListItem(props: ProductListItemProps) {
   );
 
   const { ref, isIntersecting } = useIntersectionObserver({
-    threshold: 0,
+    threshold: 0.15,
     freezeOnceVisible: true,
   });
 

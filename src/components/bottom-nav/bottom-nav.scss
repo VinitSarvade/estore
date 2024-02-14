@@ -4,6 +4,7 @@ $v-offset: 0.5rem;
 $width: calc(calc(100vw - $h-offset) / 5);
 
 @tailwind components;
+
 @layer components {
   .bottom-nav {
     @apply md:hidden fixed left-0 bottom-0 px-2 pb-3 pt-8 w-full bg-gradient-to-b from-transparent to-white z-20;

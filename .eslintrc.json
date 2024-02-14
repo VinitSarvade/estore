@@ -1,3 +1,8 @@
 {
-  "extends": ["next/core-web-vitals", "prettier"]
+  "extends": ["next/core-web-vitals", "prettier"],
+  "rules": {
+    "brace-style": ["error", "1tbs"],
+    "no-else-return": ["error", { "allowElseIf": false }],
+    "consistent-return": ["error", { "treatUndefinedAsUnspecified": false }]
+  }
 }

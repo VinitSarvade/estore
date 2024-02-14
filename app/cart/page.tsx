@@ -8,6 +8,7 @@ export default function Cart() {
         alt="Coming Soon"
         width={960}
         height={540}
+        unoptimized
       />
 
       <p className="mt-5">Coming Soon...</p>
