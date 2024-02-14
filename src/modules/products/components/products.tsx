@@ -34,7 +34,7 @@ export default function Products({
     }
 
     setProducts((prevProducts) => prevProducts.concat(response.products));
-    setPage((prevPage) => prevPage + 1);
+    return setPage((prevPage) => prevPage + 1);
   }, [page, categoryValue]);
 
   useEffect(() => {
