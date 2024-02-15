@@ -1,20 +1,35 @@
 import { cookies } from 'next/headers';
+import Image from 'next/image';
+
+import { AuthError } from '@supabase/supabase-js';
+import { LogIn } from 'lucide-react';
 
 import { createClient } from '@/lib/supabase/server-client';
 import { prisma } from '@estore/prisma';
 
+import { AuthModal } from '../auth/components/auth.modal';
+import authenticate from './authenticate.svg';
 import CartItems from './components/cart-items';
 import CartSummary from './components/cart-summary';
 import { UserCart } from './types';
 
-const getUserCart = async (): Promise<UserCart[]> => {
+const getUserCart = async (): Promise<
+  | {
+      cart: UserCart;
+      error: null;
+    }
+  | {
+      cart: null;
+      error: AuthError;
+    }
+> => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
   const { error, data } = await supabase.auth.getUser();
 
   if (error) {
-    throw error;
+    return { error, cart: null };
   }
 
   const rawQuery = `
@@ -54,11 +69,38 @@ const getUserCart = async (): Promise<UserCart[]> => {
     GROUP BY c.id, c."userId";
   `;
 
-  return prisma.$queryRawUnsafe(rawQuery, data.user.id);
+  const [queryRes]: UserCart[] = await prisma.$queryRawUnsafe(
+    rawQuery,
+    data.user.id,
+  );
+
+  return { cart: queryRes, error: null };
 };
 
 export default async function Cart() {
-  const [cart] = await getUserCart();
+  const { cart, error } = await getUserCart();
+
+  if (error) {
+    return (
+      <div className="flex flex-col gap-4 place-content-center place-items-center my-20 px-5">
+        <Image
+          src={authenticate}
+          alt=""
+          unoptimized
+          className="w-full lg:w-2/3"
+        />
+
+        <h2 className="text-2xl text-balance text-center">
+          Please sign in to view your cart!
+        </h2>
+
+        <AuthModal triggerClass="flex place-items-center gap-2 text-nowrap border px-4 py-2 rounded-md">
+          <LogIn size={18} className="stroke-foreground" />
+          Sign In
+        </AuthModal>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
