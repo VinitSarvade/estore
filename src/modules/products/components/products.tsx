@@ -52,7 +52,9 @@ export default function Products({
           {products.map((productGroup, idx) => (
             <Link
               key={productGroup.code}
-              href={`/products/details/${productGroup.Products[0].code}`}
+              href={{
+                pathname: `/products/details/${productGroup.Products[0].code}`,
+              }}
             >
               <ProductListItem
                 productGroup={productGroup}

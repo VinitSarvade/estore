@@ -6,7 +6,7 @@ import ProductAttributes from './components/product-attributes';
 import ProductColors from './components/product-colors';
 import ProductImages from './components/product-images';
 import ProductPrice from './components/product-price';
-import ProductSizes from './components/product-sizes';
+import ProductSize from './components/product-size';
 
 async function getProduct(code: string) {
   return prisma.product.findFirst({
@@ -75,7 +75,7 @@ export default async function ProductDetailsPage({
 
         <div className="mt-8">
           <div className="mb-2">Sizes</div>
-          <ProductSizes sizes={product.ProductSizes} />
+          <ProductSize sizes={product.ProductSizes} productId={product.id} />
         </div>
 
         <div className="mt-8">

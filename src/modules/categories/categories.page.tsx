@@ -47,7 +47,10 @@ export default async function CategoriesPage() {
   return (
     <div className="px-3 pt-5 grid grid-cols-2 gap-x-5 gap-y-1">
       {categories.map((category, idx) => (
-        <Link href={`/products/${category.value}`} key={category.id}>
+        <Link
+          key={category.id}
+          href={{ pathname: `/products/${category.value}` }}
+        >
           <div className="relative h-40">
             <Image
               src={CategoryIllustrations[category.id]}

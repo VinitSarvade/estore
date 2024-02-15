@@ -39,14 +39,14 @@ export default function UserDropDown({ user }: UserDropDownProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href="/account">
+          <Link href={{ pathname: '/account' }}>
             <DropdownMenuItem className="cursor-pointer">
               <UserIcon className="mr-2 h-4 w-4" />
               <span>Account</span>
             </DropdownMenuItem>
           </Link>
 
-          <Link href="/wishlist">
+          <Link href={{ pathname: '/wishlist' }}>
             <DropdownMenuItem>
               <HeartIcon className="mr-2 h-4 w-4" />
               <span>Wishlist</span>

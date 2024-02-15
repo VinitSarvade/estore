@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 
 import { LogIn } from 'lucide-react';
 
@@ -28,7 +29,9 @@ export default async function UserNav() {
 
   return (
     <div className="px-5 flex place-items-center gap-5">
-      <UserCart />
+      <Link href={{ pathname: '/cart' }}>
+        <UserCart />
+      </Link>
       <UserDropDown user={data.user} />
     </div>
   );

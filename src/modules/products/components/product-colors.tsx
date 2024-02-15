@@ -22,7 +22,7 @@ export default function ProductColors({
     <div className="no-scrollbar">
       <div className="scrollable flex flex-nowrap overflow-x-auto md:grid md:justify-between md:grid-cols-7 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 4xl:grid-cols-8 5xl:grid-cols-9">
         {colorVariants.map(({ id, name, code, ProductImages: [image] }) => (
-          <Link href={`/products/details/${code}`} key={id}>
+          <Link href={{ pathname: `/products/details/${code}` }} key={id}>
             <div
               className={cn(
                 'relative h-20 w-14 overflow-hidden border-2 border-transparent md:h-32 md:w-24 lg:h-28 lg:w-20',

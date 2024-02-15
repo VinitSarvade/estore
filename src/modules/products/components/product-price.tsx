@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils/cn';
+import { formatCurrency } from '@/lib/utils/format';
 
 interface ProductPriceProps {
   fullPrice: number;
@@ -18,10 +19,7 @@ export default function ProductPrice({
   return (
     <div className="price">
       <span className={cn('font-bold text-primary', className)}>
-        {Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        }).format(sellingPrice || fullPrice)}
+        {formatCurrency(sellingPrice || fullPrice)}
       </span>
 
       {!!isDiscounted && (

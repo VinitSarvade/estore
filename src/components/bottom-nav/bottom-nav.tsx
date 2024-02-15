@@ -46,7 +46,7 @@ function BottomNav(props: NavbarProps) {
                 activeItem && 'active',
               )}
               key={item.title}
-              href={item.href}
+              href={{ pathname: item.href }}
               data-testid="menu-item"
             >
               {
