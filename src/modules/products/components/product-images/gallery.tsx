@@ -8,6 +8,10 @@ interface ProductImagesGalleryProps {
   images: ProductImage[];
 }
 
+/**
+ * @deprecated Use `ProductImages` directly
+ */
+
 export default function ProductImagesGallery({
   images,
 }: ProductImagesGalleryProps) {
@@ -15,7 +19,7 @@ export default function ProductImagesGallery({
   const isOddNumberOfImages = total % 2 !== 0;
 
   return (
-    <div className="xl:grid xl:grid-cols-2">
+    <div className="flex flex-nowrap overflow-auto snap-x snap-mandatory xl:snap-none xl:grid xl:grid-cols-2">
       {images.map((media, idx) => {
         const isLastSingleImage = isOddNumberOfImages && idx === total - 1;
         return (
@@ -24,6 +28,7 @@ export default function ProductImagesGallery({
             className={cn(
               'relative w-full h-[65dvh] xl:h-[calc(100dvh-81px)]',
               isLastSingleImage && 'col-span-2',
+              'flex-shrink-0 snap-center snap-always',
             )}
           >
             <Image

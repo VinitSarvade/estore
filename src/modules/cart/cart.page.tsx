@@ -1,14 +1,12 @@
 import { cookies } from 'next/headers';
-import Image from 'next/image';
 
 import { AuthError } from '@supabase/supabase-js';
-import { LogIn } from 'lucide-react';
 
 import { createClient } from '@/lib/supabase/server-client';
 import { prisma } from '@estore/prisma';
 
-import { AuthModal } from '../auth/components/auth.modal';
-import authenticate from './authenticate.svg';
+import CartAuthenticate from './components/cart-authenticate';
+import CartEmpty from './components/cart-empty';
 import CartItems from './components/cart-items';
 import CartSummary from './components/cart-summary';
 import { UserCart } from './types';
@@ -81,25 +79,11 @@ export default async function Cart() {
   const { cart, error } = await getUserCart();
 
   if (error) {
-    return (
-      <div className="flex flex-col gap-4 place-content-center place-items-center my-20 px-5">
-        <Image
-          src={authenticate}
-          alt=""
-          unoptimized
-          className="w-full lg:w-2/3"
-        />
+    return <CartAuthenticate />;
+  }
 
-        <h2 className="text-2xl text-balance text-center">
-          Please sign in to view your cart!
-        </h2>
-
-        <AuthModal triggerClass="flex place-items-center gap-2 text-nowrap border px-4 py-2 rounded-md">
-          <LogIn size={18} className="stroke-foreground" />
-          Sign In
-        </AuthModal>
-      </div>
-    );
+  if (!cart) {
+    return <CartEmpty />;
   }
 
   return (

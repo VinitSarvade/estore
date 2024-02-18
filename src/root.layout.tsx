@@ -5,6 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Tabbar from '@/components/bottom-nav/bottom-nav';
 import Navbar from '@/components/navbar/navbar';
+import { Toaster } from '@/components/ui/toaster';
 import { prisma } from '@estore/prisma';
 
 import Header from './components/header/header';
@@ -56,6 +57,7 @@ export default async function RootLayout({
         </Header>
         <main className="pb-20 md:pb-0">{children}</main>
         <Tabbar />
+        <Toaster />
 
         <SpeedInsights />
         <Analytics />

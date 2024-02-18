@@ -30,6 +30,7 @@ export default function SignInForm({ className }: SignInFormProps) {
       password: '',
     },
     onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
       const result = await signIn(value);
       if (result && result.error) {
         setSubmissionError(result.error);
@@ -52,7 +53,6 @@ export default function SignInForm({ className }: SignInFormProps) {
           onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setIsSubmitting(true);
             void form.handleSubmit();
           }}
         >
