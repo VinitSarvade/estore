@@ -9,9 +9,11 @@ import { Loader2Icon, ShoppingBagIcon } from 'lucide-react';
 import { minValue, number } from 'valibot';
 
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 import { cn } from '@/lib/utils/cn';
 
 import { addToCart } from '../actions';
+import { ErrorType } from '../types';
 
 interface ProductSizeProps {
   sizes: ProductSizes[];
@@ -20,6 +22,7 @@ interface ProductSizeProps {
 
 export default function ProductSize({ sizes, productId }: ProductSizeProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm({
     defaultValues: { sizeId: -1 },
@@ -27,8 +30,18 @@ export default function ProductSize({ sizes, productId }: ProductSizeProps) {
     onSubmit: async ({ value, formApi }) => {
       setIsSubmitting(true);
       const result = await addToCart(productId, value.sizeId);
+
       setIsSubmitting(false);
-      formApi.reset();
+      if (result && result.error) {
+        let description = result.error.message;
+        if (result.error.type === ErrorType.AUTH_ERROR) {
+          description = 'Please sign in to add to cart!';
+        }
+
+        toast({ title: 'Error!', description, variant: 'destructive' });
+      }
+
+      !result && formApi.reset();
     },
   });
 

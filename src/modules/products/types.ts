@@ -26,3 +26,8 @@ export namespace ProductListing {
     'id' | 'name' | 'value'
   >;
 }
+
+export enum ErrorType {
+  AUTH_ERROR = 'AUTH_ERROR',
+  CART_NOT_FOUND = 'CART_NOT_FOUND',
+}

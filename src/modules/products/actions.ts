@@ -7,6 +7,8 @@ import { Prisma } from '@prisma/client';
 
 import { createClient } from '@/lib/supabase/server-client';
 
+import { ErrorType } from './types';
+
 export async function addToCart(productId: number, sizeId: number) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
@@ -14,7 +16,13 @@ export async function addToCart(productId: number, sizeId: number) {
   const { error, data } = await supabase.auth.getUser();
 
   if (error) {
-    return { error };
+    return {
+      error: {
+        type: ErrorType.AUTH_ERROR,
+        message: error.message,
+        status: error.status,
+      },
+    };
   }
 
   const { user } = data;
@@ -38,7 +46,8 @@ export async function addToCart(productId: number, sizeId: number) {
       },
     });
     revalidatePath('/cart', 'page');
-    return revalidatePath('/products/details/[productCode]', 'page');
+    revalidatePath('/products/details/[productCode]', 'page');
+    return null;
   } catch (error) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
@@ -51,7 +60,12 @@ export async function addToCart(productId: number, sizeId: number) {
       });
 
       if (!cart) {
-        return { error: 'Cart not found' };
+        return {
+          error: {
+            type: ErrorType.CART_NOT_FOUND,
+            message: 'Cart not found',
+          },
+        };
       }
 
       await prisma.cartItem.update({
@@ -68,9 +82,10 @@ export async function addToCart(productId: number, sizeId: number) {
         },
       });
       revalidatePath('/cart', 'page');
-      return revalidatePath('/products/details/[productCode]', 'page');
+      revalidatePath('/products/details/[productCode]', 'page');
+      return null;
     }
 
-    return { error };
+    return { ...(error as object) };
   }
 }

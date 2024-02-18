@@ -2,8 +2,7 @@
 
 import { PropsWithChildren, useState } from 'react';
 
-import { useMediaQuery } from 'usehooks-ts';
-
+// import { useMediaQuery } from 'usehooks-ts';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,16 +11,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
 
+// import {
+//   Drawer,
+//   DrawerClose,
+//   DrawerContent,
+//   DrawerFooter,
+//   DrawerHeader,
+//   DrawerTitle,
+//   DrawerTrigger,
+// } from '@/components/ui/drawer';
 import SignInForm from './sign-in-form';
 import SignUpForm from './sign-up-form';
 import SocialSignIn from './social';
@@ -59,7 +58,7 @@ export function AuthModal({
   triggerClass,
 }: PropsWithChildren<AuthModalProps>) {
   const [formType, setFormType] = useState(FormType.SignIn);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  // const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const {
     title,
@@ -70,61 +69,59 @@ export function AuthModal({
     Component,
   } = FORM[formType];
 
-  if (isDesktop) {
-    return (
-      <Dialog>
-        <DialogTrigger className={triggerClass}>{children}</DialogTrigger>
-
-        <DialogContent className="md:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-          </DialogHeader>
-
-          {social && <SocialSignIn />}
-
-          <Component />
-
-          <h3 className="text-center mt-3">
-            {footerText}
-            <Button
-              variant="link"
-              className="text-base text-secondary-foreground"
-              onClick={() => setFormType(footerActionClickValue)}
-            >
-              {footerActionText}
-            </Button>
-          </h3>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
   return (
-    <Drawer>
-      <DrawerTrigger className={triggerClass}>{children}</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader className="text-left">
-          <DrawerTitle>{title}</DrawerTitle>
-        </DrawerHeader>
-        <div className="px-4">
-          {social && <SocialSignIn className="mb-6" />}
+    <Dialog>
+      <DialogTrigger className={triggerClass}>{children}</DialogTrigger>
 
-          <Component />
+      <DialogContent className="md:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+        </DialogHeader>
 
-          <DrawerFooter className="pt-2 px-0">
-            <h3 className="text-center mt-3">
-              {footerText}
-              <Button
-                variant="link"
-                className="text-base text-secondary-foreground"
-                onClick={() => setFormType(footerActionClickValue)}
-              >
-                {footerActionText}
-              </Button>
-            </h3>
-          </DrawerFooter>
-        </div>
-      </DrawerContent>
-    </Drawer>
+        {social && <SocialSignIn />}
+
+        <Component />
+
+        <h3 className="text-center mt-3">
+          {footerText}
+          <Button
+            variant="link"
+            className="text-base text-secondary-foreground"
+            onClick={() => setFormType(footerActionClickValue)}
+          >
+            {footerActionText}
+          </Button>
+        </h3>
+      </DialogContent>
+    </Dialog>
   );
+
+  // return (
+  //   <Drawer>
+  //     <DrawerTrigger className={triggerClass}>{children}</DrawerTrigger>
+  //     <DrawerContent>
+  //       <DrawerHeader className="text-left">
+  //         <DrawerTitle>{title}</DrawerTitle>
+  //       </DrawerHeader>
+  //       <div className="px-4">
+  //         {social && <SocialSignIn className="mb-6" />}
+
+  //         <Component />
+
+  //         <DrawerFooter className="pt-2 px-0">
+  //           <h3 className="text-center mt-3">
+  //             {footerText}
+  //             <Button
+  //               variant="link"
+  //               className="text-base text-secondary-foreground"
+  //               onClick={() => setFormType(footerActionClickValue)}
+  //             >
+  //               {footerActionText}
+  //             </Button>
+  //           </h3>
+  //         </DrawerFooter>
+  //       </div>
+  //     </DrawerContent>
+  //   </Drawer>
+  // );
 }

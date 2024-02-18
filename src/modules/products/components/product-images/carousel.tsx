@@ -8,6 +8,9 @@ interface ProductImagesCarouselProps {
   images: ProductImage[];
 }
 
+/**
+ * @deprecated Use `ProductImages` directly
+ */
 export default function ProductImagesCarousel({
   images,
 }: ProductImagesCarouselProps) {
