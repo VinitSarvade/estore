@@ -12,10 +12,15 @@ export namespace ProductListing {
     PrismaProductGroup,
     'id' | 'code' | 'name'
   > & { Products: Product[] };
-  export type Product = Pick<PrismaProduct, 'code' | 'price' | 'salePrice'> & {
+
+  export type Product = Pick<
+    PrismaProduct,
+    'code' | 'name' | 'price' | 'salePrice'
+  > & {
     ProductImages: ProductImage[];
     ProductAttributes: ProductAttributes[];
   };
+
   export type ProductImage = Pick<
     PrismaProductImage,
     'id' | 'thumbnail' | 'image'

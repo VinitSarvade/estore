@@ -1,15 +1,20 @@
 import { ResolvedMetadata, ResolvingMetadata } from 'next';
 
 import cloudflareLoader from '@/lib/utils/cf-image';
-import { normalizeUrl } from '@/lib/utils/url';
+import {
+  getProductCodeAndNameFromSlug,
+  getSlugFromCodeAndName,
+  normalizeUrl,
+} from '@/lib/utils/url';
 import { prisma } from '@estore/prisma';
 
 export { default } from '@/modules/products/product-details.page';
 
 export async function generateMetadata(
-  { params }: { params: { productCode: string } },
+  { params }: { params: { productSlug: string } },
   parent: ResolvingMetadata,
 ): Promise<ResolvedMetadata | null> {
+  const [productCode] = getProductCodeAndNameFromSlug(params.productSlug);
   const product = await prisma.product.findFirst({
     select: {
       name: true,
@@ -18,7 +23,7 @@ export async function generateMetadata(
       ProductImages: { select: { image: true } },
     },
     where: {
-      code: params.productCode,
+      code: productCode,
     },
   });
 
@@ -74,7 +79,7 @@ export async function generateStaticParams() {
   const productTuples = await prisma.$transaction(
     categories.map((category) =>
       prisma.product.findMany({
-        select: { code: true },
+        select: { code: true, ProductGroup: { select: { name: true } } },
         where: {
           Category: {
             path: {
@@ -88,6 +93,8 @@ export async function generateStaticParams() {
   );
 
   return productTuples.flatMap((tpl) =>
-    tpl.map(({ code }) => ({ productCode: code })),
+    tpl.map(({ code, ProductGroup: { name } }) => ({
+      productSlug: getSlugFromCodeAndName(code, name),
+    })),
   );
 }

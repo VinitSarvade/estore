@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { ProductAttributes } from '@prisma/client';
+import type { ProductAttributes } from '@prisma/client';
 
 import {
   Accordion,
