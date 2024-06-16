@@ -11,7 +11,7 @@ import { prisma } from '@estore/prisma';
 const updateCartItemSchema = v.object({
   cartId: v.number(),
   productId: v.number(),
-  quantity: v.number([v.integer(), v.minValue(0)]),
+  quantity: v.pipe(v.number(), v.integer(), v.minValue(0)),
 });
 
 export async function updateCartItem(formData: FormData) {
