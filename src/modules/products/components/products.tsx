@@ -7,6 +7,8 @@ import { getPaginatedProductsByCategoryValue } from '@app/products/[category]/ac
 import { Loader2 } from 'lucide-react';
 import { useEffectOnce, useIntersectionObserver } from 'usehooks-ts';
 
+import { getSlugFromCodeAndName } from '@/lib/utils/url';
+
 import { ProductListing } from '../types';
 import ProductListItem from './product-list-item';
 
@@ -53,7 +55,7 @@ export default function Products({
             <Link
               key={productGroup.code}
               href={{
-                pathname: `/products/details/${productGroup.Products[0].code}`,
+                pathname: `/products/details/${getSlugFromCodeAndName(productGroup.Products[0].code, productGroup.name)}`,
               }}
             >
               <ProductListItem

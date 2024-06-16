@@ -2,6 +2,34 @@
 
 import { prisma } from '@estore/prisma';
 
+export async function getProduct(slug: string) {
+  const code = slug.split('-').pop();
+  return prisma.product.findFirst({
+    where: { code },
+    include: {
+      ProductGroup: {
+        select: {
+          name: true,
+          Products: {
+            select: {
+              id: true,
+              code: true,
+              name: true,
+              ProductImages: {
+                select: { id: true, thumbnail: true, image: true },
+                take: 1,
+              },
+            },
+          },
+        },
+      },
+      ProductImages: true,
+      ProductAttributes: true,
+      ProductSizes: true,
+    },
+  });
+}
+
 const PAGE_SIZE = 20;
 
 export async function getPaginatedProductsByCategoryValue(

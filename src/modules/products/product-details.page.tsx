@@ -7,42 +7,14 @@ import ProductColors from './components/product-colors';
 import ProductImages from './components/product-images';
 import ProductPrice from './components/product-price';
 import ProductSize from './components/product-size';
-
-async function getProduct(code: string) {
-  return prisma.product.findFirst({
-    where: {
-      code: code,
-    },
-    include: {
-      ProductGroup: {
-        select: {
-          name: true,
-          Products: {
-            select: {
-              id: true,
-              code: true,
-              name: true,
-              ProductImages: {
-                select: { id: true, thumbnail: true, image: true },
-                take: 1,
-              },
-            },
-          },
-        },
-      },
-      ProductImages: true,
-      ProductAttributes: true,
-      ProductSizes: true,
-    },
-  });
-}
+import { getProduct } from './data';
 
 export default async function ProductDetailsPage({
-  params: { productCode },
+  params: { productSlug },
 }: {
-  params: { productCode: string };
+  params: { productSlug: string };
 }) {
-  const product = await getProduct(productCode);
+  const product = await getProduct(productSlug);
 
   if (!product) {
     notFound();
