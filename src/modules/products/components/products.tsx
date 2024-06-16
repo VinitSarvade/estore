@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { getPaginatedProductsByCategoryValue } from '@app/products/[category]/actions';
 import { Loader2 } from 'lucide-react';
-import { useEffectOnce, useIntersectionObserver } from 'usehooks-ts';
+import { useIntersectionObserver } from 'usehooks-ts';
 
 import { getSlugFromCodeAndName } from '@/lib/utils/url';
 
