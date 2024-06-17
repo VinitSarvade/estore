@@ -42,6 +42,7 @@ export default async function ProductDetailsPage({
           <ProductColors
             currentCode={product.code}
             colorVariants={product.ProductGroup.Products}
+            productGroupName={product.ProductGroup.name}
           />
         </div>
 
