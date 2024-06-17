@@ -10,14 +10,28 @@ interface SignInData {
   password: string;
 }
 
-export async function signIn(data: SignInData) {
+export interface AuthError {
+  message: string;
+  code?: string;
+  statusCode?: number;
+}
+
+export async function signIn(
+  data: SignInData,
+): Promise<{ error: AuthError } | null> {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    return { error };
+    return {
+      error: {
+        message: error.message,
+        code: error.code,
+        statusCode: error.status,
+      },
+    };
   }
 
   revalidatePath('/', 'layout');
@@ -31,7 +45,9 @@ interface SignUpData {
   lastName: string;
 }
 
-export async function signUp(data: SignUpData) {
+export async function signUp(
+  data: SignUpData,
+): Promise<{ error: AuthError } | null> {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -44,7 +60,13 @@ export async function signUp(data: SignUpData) {
   });
 
   if (error) {
-    return { error };
+    return {
+      error: {
+        message: error.message,
+        code: error.code,
+        statusCode: error.status,
+      },
+    };
   }
 
   revalidatePath('/', 'layout');

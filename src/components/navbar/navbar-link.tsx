@@ -20,7 +20,7 @@ export default function NavbarLink({ name, value }: NavbarLinkProps) {
 
   return (
     <div className={cn('menu-item ', blockLinks, isActive && 'active')}>
-      <Link href={link as Route} className={blockLinks}>
+      <Link href={link as Route} className={cn(blockLinks, 'px-5')}>
         {name.toLowerCase()}
       </Link>
     </div>

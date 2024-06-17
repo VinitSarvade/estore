@@ -71,6 +71,7 @@ model Product {
   ProductCompositions ProductComposition[]
   ProductAttributes   ProductAttributes[]
   CartItem            CartItem[]
+  OrderItem           OrderItem[]
 
   @@unique([code, productGroupId])
   @@map("products")
@@ -88,14 +89,15 @@ model ProductImage {
 }
 
 model ProductSizes {
-  id            Int        @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   productId     Int
   sizeCode      String
   size          String
   name          String
   sizeScaleCode String
-  Product       Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  Product       Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
   CartItem      CartItem[]
+  OrderItem     OrderItem[]
 
   @@map("product_sizes")
 }
@@ -154,4 +156,39 @@ model CartItem {
 
   @@unique([cartId, productId]) // Ensures unique product per cart
   @@map("cart_items")
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  status     OrderStatus @default(PROCESSING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  OrderItems OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id              Int          @id @default(autoincrement())
+  orderId         String
+  productId       Int
+  quantity        Int
+  price           Float
+  subtotal        Float
+  sizeId          Int
+  productSnapshot Json
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  Order           Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  Product         Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  ProductSize     ProductSizes @relation(fields: [sizeId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+enum OrderStatus {
+  PROCESSING
+  SHIPPED
+  DELIVERED
 }
