@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-import { AuthError } from '@supabase/supabase-js';
 import { useForm } from '@tanstack/react-form';
 import { valibotValidator } from '@tanstack/valibot-form-adapter';
 import { Loader2Icon } from 'lucide-react';
@@ -13,7 +12,7 @@ import { cn } from '@/lib/utils/cn';
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
-import { signIn } from '../actions';
+import { AuthError, signIn } from '../actions';
 import ErrorBanner from './error-banner';
 
 interface SignInFormProps {

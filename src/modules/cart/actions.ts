@@ -56,3 +56,71 @@ export async function updateCartItem(formData: FormData) {
 
   return revalidatePath('/cart', 'page');
 }
+
+export async function placeOrder() {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { error };
+  }
+
+  const cart = await prisma.cart.findFirst({
+    where: {
+      userId: user.id,
+    },
+    include: {
+      Items: {
+        include: {
+          Product: {
+            include: {
+              ProductSizes: true,
+              Category: true,
+              ProductGroup: true,
+              ProductImages: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!cart) {
+    return { error: 'Cart not found' };
+  }
+
+  const [order] = await prisma.$transaction([
+    prisma.order.create({
+      data: {
+        userId: user.id,
+        OrderItems: {
+          createMany: {
+            data: cart.Items.map((item) => ({
+              productId: item.productId,
+              quantity: item.quantity,
+              price: item.Product.price,
+              sizeId: item.sizeId,
+              subtotal: item.Product.price * item.quantity,
+              productSnapshot: item.Product,
+            })),
+          },
+        },
+      },
+      include: {
+        OrderItems: true,
+      },
+    }),
+    prisma.cart.delete({
+      where: {
+        id: cart.id,
+      },
+    }),
+  ]);
+
+  revalidatePath('/', 'layout');
+  return order;
+}
